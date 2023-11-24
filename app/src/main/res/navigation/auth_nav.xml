@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav"
+    app:startDestination="@id/connexionFragment">
+    <fragment
+        android:id="@+id/connexionFragment"
+        android:name="com.example.producteurapp.ui.connexion.ConnexionFragment"
+        android:label="fragment_connexion"
+        tools:layout="@layout/fragment_connexion" >
+        <action
+            android:id="@+id/action_connexionFragment_to_enregistrementFragment"
+            app:destination="@id/enregistrementFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enregistrementFragment"
+        android:name="com.example.producteurapp.ui.enregistrement.EnregistrementFragment"
+        android:label="fragment_enregistrement"
+        tools:layout="@layout/fragment_enregistrement" >
+        <action
+            android:id="@+id/action_enregistrementFragment_to_connexionFragment"
+            app:destination="@id/connexionFragment" />
+    </fragment>
+</navigation>

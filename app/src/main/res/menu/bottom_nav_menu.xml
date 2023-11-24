@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_accueil"
+        android:icon="@drawable/ic_accueil_noir_24dp"
+        android:title="@string/titre_accueil" />
+
+    <item
+        android:id="@+id/navigation_publier"
+        android:icon="@drawable/ic_publier_noir_24"
+        android:title="@string/titre_publier" />
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ic_notifications_noir_24dp"
+        android:title="@string/titre_notifications" />
+
+    <item
+        android:id="@+id/navigation_compte"
+        android:icon="@drawable/ic_compte_noir_24"
+        android:title="@string/titre_compte" />
+
+
+</menu>

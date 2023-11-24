@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">ProducteurApp</string>
+    <string name="titre_accueil">Accueil</string>
+    <string name="titre_publier">Publier</string>
+    <string name="titre_notifications">Notifications</string>
+    <string name="titre_compte">Compte</string>
+    <string name="text_valider">Valider</string>
+    <string name="text_annuler">Annuler</string>
+
+    <string name="text_pas_de_compte">Je n\'ai pas de compte</string>
+    <string name="text_un_compte">J\'ai deja un compte</string>
+    <string name="text_recherche">Rechercher</string>
+    <string name="tap_prix_croissant">Prix croissant</string>
+    <string name="tap_prix_decroissant">Prix décroissant</string>
+
+    <string name="tap_en_attente">En attente</string>
+    <string name="tap_validee">Validée</string>
+    <string name="tap_refusee">Refusée</string>
+
+
+    <string name="text_bonjour">Bonjour</string>
+    <string name="text_hint_nom">Nom</string>
+    <string name="text_hint_telephone">Telephone</string>
+    <string name="text_hint_adresse">Adresse</string>
+    <string name="text_publier">Publier</string>
+    <string name="text_hint_email">Email</string>
+    <string name="text_hint_produit">Produit</string>
+    <string name="text_hint_quantite">Quantité</string>
+    <string name="text_hint_prix">Prix</string>
+    <string name="text_hint_description">Description</string>
+
+    <string name="text_hint_password">Password</string>
+    <string name="text_categorie">Catégorie</string>
+
+
+    <string name="text_notifications">Mes dernières commandes !</string>
+    <string name="titre_connexion">Se connecter</string>
+    <string name="titre_enregistrement">S\'enregistrer</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="categorie_produit">
+        <item>FRUIT</item>
+        <item>LEGUME</item>
+        <item>AUTRE</item>
+    </string-array>
+
+</resources>
