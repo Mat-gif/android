@@ -6,16 +6,7 @@ plugins {
 android {
     namespace = "com.example.producteurapp"
     compileSdk = 34
-//    sourceSets {
-//        named("main") {
-//            java.srcDirs(
-//                "/home/mathieu/Documents/Projet/Projet_HAI925I/ApiCommerce2/src/main/java"
-//            )
-//            kotlin.srcDirs(
-//                "src/main/kotlin"
-//            )
-//        }
-//    }
+
     defaultConfig {
         applicationId = "com.example.producteurapp"
         minSdk = 24
@@ -48,14 +39,13 @@ android {
 
 }
 
-val ktorVersion = "2.3.5"
+//val ktorVersion = "2.3.5"
 dependencies {
-    implementation ("io.ktor:ktor-client-core:$ktorVersion")
-    implementation ("io.ktor:ktor-client-json:$ktorVersion")
-    implementation ("io.ktor:ktor-client-serialization:$ktorVersion")
-    implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-//    implementation("org.projectlombok:lombok:1.18.22")
-//    implementation("jakarta.platform:jakarta.jakartaee-api:9.0.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation ("com.squareup.moshi:moshi-kotlin:1.12.0")
+    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
+
 
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.core:core-ktx:1.9.0")

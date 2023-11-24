@@ -14,4 +14,14 @@ class Storage(private val context: Context) {
     fun retrieveFromPreferences(key: String, defaultValue: String): String {
         return sharedPref.getString(key, defaultValue) ?: defaultValue
     }
+
+    fun saveToken(value: String)
+    {
+        saveToPreferences("token", value)
+    }
+
+    fun getToken() : String
+    {
+        return retrieveFromPreferences("token", "")
+    }
 }
