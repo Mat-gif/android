@@ -10,7 +10,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 
 class ApiClient(private val context: Context) {
-    private val BASE_URL = "https://109c-23-90-237-158.ngrok.io"
+    private val BASE_URL = "https://d8e5-23-90-237-158.ngrok.io"
 
     private val retrofit: Retrofit by lazy {
         val moshi = Moshi.Builder()
@@ -34,7 +34,7 @@ class ApiClient(private val context: Context) {
     }
 
     private fun retrieveTokenFromStorage(context: Context): String {
-        return Storage(context).retrieveFromPreferences("token", "")
+        return Storage(context). getToken()
     }
 
     val apiService: ApiService by lazy {

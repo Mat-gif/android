@@ -30,14 +30,14 @@ class ConnexionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        store = Storage(requireContext())
+        val token : String = store.getToken()
 
-//        val token : String = store.retrieveFromPreferences("token", "")
+        if (token != "")  {
 
-//        if (token != "")  {
-//
-//            startActivity(Intent(requireActivity(), AppActivity::class.java))
-//            requireActivity().finish()
-//        }
+            startActivity(Intent(requireActivity(), AppActivity::class.java))
+            requireActivity().finish()
+        }
 
 
         _binding = FragmentConnexionBinding.inflate(inflater, container, false)

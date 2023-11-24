@@ -10,10 +10,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.producteurapp.R
 import com.example.producteurapp.model.Produit
+import com.example.producteurapp.model.response.ProduitReponse
 
 
 class ProduitAdapter(
-    var products: List<Produit>,
+    var products: List<ProduitReponse>,
     var context: Context
 ) : RecyclerView.Adapter<ProduitAdapter.ProtuctViewHolder>() {
 
@@ -31,15 +32,15 @@ class ProduitAdapter(
 
     override fun onBindViewHolder(holder: ProtuctViewHolder, position: Int) {
         holder.produit_nom.text = products[position].nom
-        holder.produit_prix.text = products[position].prix
-        holder.produit_date.text = products[position].date
+        holder.produit_prix.text = products[position].prix.toString()
+        holder.produit_date.text = products[position].date_publication
         }
 
     override fun getItemCount(): Int {
         return products.size
     }
 
-    fun updateProducts(newProducts: List<Produit>) {
+    fun updateProducts(newProducts: List<ProduitReponse>) {
         products = newProducts
         notifyDataSetChanged()
     }

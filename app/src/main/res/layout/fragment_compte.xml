@@ -85,7 +85,7 @@
             android:layout_marginBottom="5dp" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/compte_categorie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_categorie_producteur_noir_24"
@@ -101,7 +101,7 @@
             android:layout_marginBottom="5dp" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/compte_adresse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_adresse_noir_24"
@@ -118,7 +118,7 @@
             android:layout_marginBottom="5dp" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/compte_telephone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_phone_noir_24"
@@ -134,7 +134,7 @@
             android:layout_marginBottom="5dp" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/compte_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minLines="2"

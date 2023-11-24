@@ -24,6 +24,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.search.SearchView
+        android:id="@+id/accueil_recherche"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hint="@string/text_recherche"
