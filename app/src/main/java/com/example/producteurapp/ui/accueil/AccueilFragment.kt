@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.producteurapp.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.data.Produits
 import com.example.producteurapp.databinding.FragmentAccueilBinding
@@ -27,14 +28,18 @@ class AccueilFragment : Fragment() {
     private var _binding: FragmentAccueilBinding? = null
     private val binding get() = _binding!!
     lateinit var adapter : ProduitAdapter
-    lateinit var accueilViewModel : AccueilViewModel
+    private lateinit var appViewModel: AppViewModel
+
+    //    lateinit var accueilViewModel : AccueilViewModel
     private lateinit var store : Storage
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-         accueilViewModel = ViewModelProvider(this).get(AccueilViewModel::class.java)
+//         accueilViewModel = ViewModelProvider(this).get(AccueilViewModel::class.java)
+
+        appViewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
 
         // Modifier la bar d'action
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
@@ -53,50 +58,38 @@ class AccueilFragment : Fragment() {
 
         productRecyclerView.adapter = adapter
 
-        accueilViewModel.produitLiveData.observe(viewLifecycleOwner, Observer { produits ->
-            // Mettre à jour la liste des produits dans l'adapter
-            adapter.updateProducts(produits)
+        /**
+         * Maj de la liste des produits
+         */
+        appViewModel.produits.observe(viewLifecycleOwner, Observer { produits ->
+            adapter.updateProducts(produits) // maj des produits
         })
-//
-//
+
+        /**
+         * Gestion des filtres a l'aide des TAB
+         */
         root.findViewById<TabLayout>(R.id.tabs_accueil).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
-
-                // Action lorsqu'un onglet est sélectionné
                 when (tab?.position) {
-                    0 -> {
-//                        Toast.makeText(requireContext(),"0",Toast.LENGTH_SHORT).show()
-                        accueilViewModel.getProduits()
-                    }
-                    1 -> {
-//                        Toast.makeText(requireContext(),"1",Toast.LENGTH_SHORT).show()
-                        var produits :List<ProduitReponse>  = accueilViewModel.produitLiveData.value ?:return
-
-                        accueilViewModel.updateProduitsList(produits.sortedBy { it.prix })
-                    }
-                    2 -> {
-//                        Toast.makeText(requireContext(),"2",Toast.LENGTH_SHORT).show()
-                        var produits :List<ProduitReponse>  = accueilViewModel.produitLiveData.value ?:return
-
-                        accueilViewModel.updateProduitsList(produits.sortedByDescending { it.prix })
-                    }
-                    // Ajoutez plus de cas pour d'autres onglets si nécessaire
+                    0 ->  appViewModel.getProduits() // reinitialiser
+                    1 -> appViewModel.updateProduits(appViewModel.produits.value!!.sortedBy { it.prix }) // croissant
+                    2 -> appViewModel.updateProduits(appViewModel.produits.value!!.sortedByDescending { it.prix }) // decroissant
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                // Action lorsqu'un onglet est désélectionné
+                // TODO : Action lorsqu'un onglet est désélectionné
             }
-
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                // Action lorsqu'un onglet est à nouveau sélectionné
+                // TODO : Action lorsqu'un onglet est à nouveau sélectionné
             }
-
         })
 
-        store = Storage(requireContext())
-        root.findViewById<TextView>(R.id.accueil_producteur_prenom).text  = store.getProfil().prenom
-
+        /***
+         * Maj du Prenom de l'utilisateur sur la page d'accueil
+         */
+        appViewModel.profil.observe(viewLifecycleOwner, Observer { profil ->
+            root.findViewById<TextView>(R.id.accueil_producteur_prenom).text  = profil.prenom
+        })
 
         return root
     }

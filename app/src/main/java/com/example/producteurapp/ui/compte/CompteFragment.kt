@@ -25,7 +25,7 @@ class CompteFragment: Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    lateinit var compteViewMode: CompteViewMode
+//    lateinit var compteViewMode: CompteViewMode
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +33,7 @@ class CompteFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        compteViewMode = ViewModelProvider(this).get(CompteViewMode::class.java)
+//        compteViewMode = ViewModelProvider(this).get(CompteViewMode::class.java)
 
         // Change ActionBar when this fragment is visible
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
@@ -45,18 +45,18 @@ class CompteFragment: Fragment() {
 
         val root: View = binding.root
 
-        compteViewMode.profilProducteur()
+//        compteViewMode.profilProducteur()
 
-        compteViewMode.producteurLiveData.observe(viewLifecycleOwner, Observer { profil ->
-
-            root.findViewById<TextView>(R.id.compte_nom).text = profil.nom
-            root.findViewById<TextView>(R.id.compte_prenom).text = profil.prenom
-            root.findViewById<TextView>(R.id.compte_adresse).text = profil.adresse
-            root.findViewById<TextView>(R.id.compte_description).text = "Une petite description"
-            root.findViewById<TextView>(R.id.compte_telephone).text = profil.telephone
-            root.findViewById<TextView>(R.id.compte_categorie).text = profil.categorie.toString()
-
-        })
+//        compteViewMode.producteurLiveData.observe(viewLifecycleOwner, Observer { profil ->
+//
+//            root.findViewById<TextView>(R.id.compte_nom).text = profil.nom
+//            root.findViewById<TextView>(R.id.compte_prenom).text = profil.prenom
+//            root.findViewById<TextView>(R.id.compte_adresse).text = profil.adresse
+//            root.findViewById<TextView>(R.id.compte_description).text = "Une petite description"
+//            root.findViewById<TextView>(R.id.compte_telephone).text = profil.telephone
+//            root.findViewById<TextView>(R.id.compte_categorie).text = profil.categorie.toString()
+//
+//        })
 
         root.findViewById<ExtendedFloatingActionButton>(R.id.compte_editer).setOnClickListener {
             EditerCompteFragment().show(childFragmentManager,"editerCompte")

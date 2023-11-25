@@ -19,7 +19,7 @@ import com.example.producteurapp.model.request.ProduitRequest
 class PublierFragment : Fragment() {
 
     private var _binding: FragmentPublierBinding? = null
-    private lateinit var publierVM: PublierViewModel
+//    private lateinit var publierVM: PublierViewModel
 
 
 
@@ -36,7 +36,7 @@ class PublierFragment : Fragment() {
     ): View {
 //        http= Http(requireContext())
 //        store= Storage(requireContext())
-        val publierViewModel = ViewModelProvider(this).get(PublierViewModel::class.java)
+//        val publierViewModel = ViewModelProvider(this).get(PublierViewModel::class.java)
 
         // Modifier la bar d'action
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
@@ -48,7 +48,7 @@ class PublierFragment : Fragment() {
 
         root.findViewById<Button>(R.id.bouton_publier).setOnClickListener {
 
-            publierVM = ViewModelProvider(this).get(PublierViewModel::class.java)
+//            publierVM = ViewModelProvider(this).get(PublierViewModel::class.java)
 
             // Example of using the connexionToApi function
             val produitRequest = ProduitRequest(
@@ -58,17 +58,17 @@ class PublierFragment : Fragment() {
                 root.findViewById<EditText>(R.id.publier_description).text.toString(),
                 root.findViewById<EditText>(R.id.publier_quantite).text.toString().toInt()
             )
-            publierVM.publierToApi(produitRequest)
-
-            // Observe changes in status LiveData if needed
-            publierVM.status.observe(viewLifecycleOwner) { status ->
-
-                if (status == "200"){
-                    startActivity(Intent(requireActivity(), AppActivity::class.java))
-                    requireActivity().finish()
-                }
-
-            }
+//            publierVM.publierToApi(produitRequest)
+//
+//            // Observe changes in status LiveData if needed
+//            publierVM.status.observe(viewLifecycleOwner) { status ->
+//
+//                if (status == "200"){
+//                    startActivity(Intent(requireActivity(), AppActivity::class.java))
+//                    requireActivity().finish()
+//                }
+//
+//            }
 
 
 //
