@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
@@ -16,17 +17,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.producteurapp.R
 import com.example.producteurapp.data.Produits
 import com.example.producteurapp.databinding.FragmentAccueilBinding
+import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.response.ProduitReponse
 import com.google.android.material.tabs.TabLayout
 
 class AccueilFragment : Fragment() {
 
-    private  var produits : Produits = Produits()
+
     private var _binding: FragmentAccueilBinding? = null
     private val binding get() = _binding!!
     lateinit var adapter : ProduitAdapter
     lateinit var accueilViewModel : AccueilViewModel
-
+    private lateinit var store : Storage
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -92,6 +94,8 @@ class AccueilFragment : Fragment() {
 
         })
 
+        store = Storage(requireContext())
+        root.findViewById<TextView>(R.id.accueil_producteur_prenom).text  = store.getProfil().prenom
 
 
         return root

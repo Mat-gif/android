@@ -2,6 +2,7 @@ package com.example.producteurapp.model.response
 
 import com.example.producteurapp.model.CategorieProducteur
 
+
 data class ProducteurResponse(
     val   email : String?,
     val  nom: String?,

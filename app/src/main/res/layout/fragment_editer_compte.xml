@@ -22,7 +22,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="?attr/textInputFilledStyle"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:hint="@string/text_hint_nom"
@@ -31,6 +31,26 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editer_nom_producteur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="50"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="?attr/textInputFilledStyle"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:hint="@string/text_hint_prenom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editer_prenom_producteur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="50"
@@ -50,6 +70,7 @@
             app:startIconDrawable="@drawable/ic_adresse_noir_24">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editer_adresse_producteur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="50"
@@ -69,6 +90,7 @@
             app:startIconDrawable="@drawable/ic_phone_noir_24">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editer_telephone_producteur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="50"
@@ -87,6 +109,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editer_description_producteur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="3"

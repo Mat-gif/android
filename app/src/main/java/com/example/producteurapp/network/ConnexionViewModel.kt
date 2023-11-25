@@ -1,6 +1,7 @@
 package com.example.producteurapp.network
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -33,10 +34,12 @@ class ConnexionViewModel(application: Application) : AndroidViewModel(applicatio
                 _status.value = "200"
                 store= Storage(getApplication())
                 store.saveToken(connexionResponse.token)
+                store.saveProfil(connexionResponse.producteur)
 
 
             } catch (e: Exception) {
                 _status.value = e.message
+
             }
         }
     }

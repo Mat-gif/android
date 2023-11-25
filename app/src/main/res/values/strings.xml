@@ -17,7 +17,7 @@
     <string name="tap_validee">Validée</string>
     <string name="tap_refusee">Refusée</string>
 
-
+    <string name="text_hint_prenom">Prenom</string>
     <string name="text_bonjour">Bonjour</string>
     <string name="text_hint_nom">Nom</string>
     <string name="text_hint_telephone">Telephone</string>

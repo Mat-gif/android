@@ -1,3 +1,8 @@
 package com.example.producteurapp.model.response
 
-data class ConnexionReponse(val token: String)
+import com.example.producteurapp.model.CategorieProducteur
+
+data class ConnexionReponse(
+    val token: String,
+    val producteur: ProducteurResponse
+)

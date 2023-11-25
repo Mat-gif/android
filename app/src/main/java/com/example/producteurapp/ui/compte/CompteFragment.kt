@@ -45,24 +45,23 @@ class CompteFragment: Fragment() {
 
         val root: View = binding.root
 
-//        val textView: TextView = binding.textCompte
-//        compteViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-
         compteViewMode.profilProducteur()
 
         compteViewMode.producteurLiveData.observe(viewLifecycleOwner, Observer { profil ->
 
             root.findViewById<TextView>(R.id.compte_nom).text = profil.nom
+            root.findViewById<TextView>(R.id.compte_prenom).text = profil.prenom
             root.findViewById<TextView>(R.id.compte_adresse).text = profil.adresse
-            root.findViewById<TextView>(R.id.compte_description).text = "ahahahahahah"
+            root.findViewById<TextView>(R.id.compte_description).text = "Une petite description"
             root.findViewById<TextView>(R.id.compte_telephone).text = profil.telephone
             root.findViewById<TextView>(R.id.compte_categorie).text = profil.categorie.toString()
 
         })
 
-        root.findViewById<ExtendedFloatingActionButton>(R.id.compte_editer).setOnClickListener { EditerCompteFragment().show(childFragmentManager,"editerCompte") }
+        root.findViewById<ExtendedFloatingActionButton>(R.id.compte_editer).setOnClickListener {
+            EditerCompteFragment().show(childFragmentManager,"editerCompte")
+
+        }
 
         return root
     }
