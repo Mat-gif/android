@@ -16,6 +16,7 @@ import com.example.producteurapp.R
 import com.example.producteurapp.data.Commandes
 import com.example.producteurapp.databinding.FragmentNotificationsBinding
 import com.example.producteurapp.ui.accueil.ProduitAdapter
+import com.google.android.material.tabs.TabLayout
 
 class NotificationsFragment : Fragment() {
     private var commandes : Commandes = Commandes()
@@ -51,6 +52,30 @@ class NotificationsFragment : Fragment() {
         })
 
         notificationsViewModel.updateCommandesList(commandes.list())
+
+
+        /**
+         * Gestion des filtres a l'aide des TAB
+         */
+        root.findViewById<TabLayout>(R.id.tabs_notifications).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+
+                when (tab?.position) {
+                    0 ->  notificationsViewModel.updateCommandesList(commandes.list())
+                    1 -> notificationsViewModel.updateCommandesList(commandes.list().filter { it.status == Statut.EN_ATTENTE })
+                    2 -> notificationsViewModel.updateCommandesList(commandes.list().filter { it.status == Statut.VALIDEE })
+                    3 -> notificationsViewModel.updateCommandesList(commandes.list().filter { it.status == Statut.REFUSEE })
+
+                }
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // TODO : Action lorsqu'un onglet est désélectionné
+            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // TODO : Action lorsqu'un onglet est à nouveau sélectionné
+            }
+        })
+
 
 
 

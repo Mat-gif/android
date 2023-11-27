@@ -15,7 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
-
+    private lateinit var store : Storage
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
@@ -23,6 +23,14 @@ class AuthActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         navController.navigate(R.id.connexionFragment)
+        store= Storage(getApplication())
+        val token : String = store.getToken()
+
+        if (token != "")  {
+
+            startActivity(Intent(this, AppActivity::class.java))
+            this.finish()
+        }
 
     }
 

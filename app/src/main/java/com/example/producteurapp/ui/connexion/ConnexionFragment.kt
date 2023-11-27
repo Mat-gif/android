@@ -31,13 +31,6 @@ class ConnexionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         store = Storage(requireContext())
-//        val token : String = store.getToken()
-//
-//        if (token != "")  {
-//
-//            startActivity(Intent(requireActivity(), AppActivity::class.java))
-//            requireActivity().finish()
-//        }
 
 
         _binding = FragmentConnexionBinding.inflate(inflater, container, false)
