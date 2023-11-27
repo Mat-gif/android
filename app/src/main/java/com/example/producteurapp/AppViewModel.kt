@@ -1,7 +1,9 @@
 package com.example.producteurapp
 
 import android.app.Application
+import android.content.Intent
 import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,6 +23,9 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     // pour stocker certaine informations
     private lateinit var store : Storage
+
+    private val _navigationEvent = MutableLiveData<NavigationEvent>()
+    val navigationEvent: LiveData<NavigationEvent> = _navigationEvent
 
     /**
      * PRODUITS
@@ -72,6 +77,9 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 Log.d("POST::/api/producteur/produit", response.toString())
             } catch (e: Exception) {
                 Log.e("POST::/api/producteur/produit", e.message.toString())
+                store.clear()
+                _navigationEvent.value = NavigationEvent.LaunchNewActivity
+
             }
         }
     }
@@ -87,6 +95,9 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 Log.d("GET::/api/producteur/produit", response.toString())
             } catch (e: Exception) {
                 Log.e("GET::/api/producteur/produit", e.message.toString())
+                store.clear()
+                _navigationEvent.value = NavigationEvent.LaunchNewActivity
+
             }
         }
     }
@@ -102,6 +113,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 Log.d("GET::/api/producteur/profil", response.toString())
             } catch (e: Exception) {
                 Log.e("GET::/api/producteur/profil", e.message.toString())
+                store.clear()
+                _navigationEvent.value = NavigationEvent.LaunchNewActivity
+
+
             }
         }
     }
@@ -116,8 +131,12 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 updateProfil(response)
                 store.saveProfil(response)
                 Log.d("PUT::/api/producteur/profil", response.toString())
+                println("#####$response")
             } catch (e: Exception) {
                 Log.e("PUT::/api/producteur/profil", e.message.toString())
+                store.clear()
+                _navigationEvent.value = NavigationEvent.LaunchNewActivity
+
             }
         }
     }
@@ -131,6 +150,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         getProduits()
     }
 
+
+    sealed class NavigationEvent {
+        object LaunchNewActivity : NavigationEvent()
+    }
 
 
 }

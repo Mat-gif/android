@@ -17,6 +17,12 @@ class Storage(private val context: Context) {
         return sharedPref.getString(key, defaultValue) ?: defaultValue
     }
 
+fun clear()
+{
+    editor.clear()
+    editor.apply()
+}
+
     fun saveToken(value: String)
     {
         saveToPreferences("token", value)

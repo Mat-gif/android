@@ -5,16 +5,16 @@ import android.os.Bundle
 import androidx.appcompat.app.ActionBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.producteurapp.databinding.ActivityMainBinding
-import com.example.producteurapp.localStorage.Storage
-import com.example.producteurapp.ui.compte.CompteViewMode
 
 class AppActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
 
     private lateinit var appViewModel: AppViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +36,15 @@ class AppActivity : AppCompatActivity() {
          * initialisation du ViewModel
          */
          appViewModel = ViewModelProvider(this).get(AppViewModel::class.java)
+
+        appViewModel.navigationEvent.observe(this) { event ->
+            when (event) {
+                is AppViewModel.NavigationEvent.LaunchNewActivity -> {
+                    val intent = Intent(this, AuthActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
 
     }
 }

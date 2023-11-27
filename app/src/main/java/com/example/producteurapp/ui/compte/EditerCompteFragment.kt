@@ -10,8 +10,10 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.example.producteurapp.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.request.ProducteurRequest
@@ -21,7 +23,8 @@ import com.example.producteurapp.model.response.ProducteurResponse
 class EditerCompteFragment : DialogFragment() {
 
     private lateinit var store : Storage
-    lateinit var compteViewMode: CompteViewMode
+    private lateinit var appViewModel: AppViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,32 +34,29 @@ class EditerCompteFragment : DialogFragment() {
         // Inflate the layout to use as a dialog or embedded fragment.
         var root = inflater.inflate(R.layout.fragment_editer_compte, container, false)
 
-        store = Storage(requireContext())
+        appViewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
 
-        val producteur : ProducteurResponse = store.getProfil()
+        appViewModel.profil.observe(viewLifecycleOwner, Observer { producteur ->
+            root.findViewById<EditText>(R.id.editer_adresse_producteur).setText(producteur.adresse)
+            root.findViewById<EditText>(R.id.editer_description_producteur).setText("Une belle petite description")
+            root.findViewById<EditText>(R.id.editer_nom_producteur).setText(producteur.nom)
+            root.findViewById<EditText>(R.id.editer_prenom_producteur).setText(producteur.prenom)
+            root.findViewById<EditText>(R.id.editer_telephone_producteur).setText(producteur.telephone)
 
-        root.findViewById<EditText>(R.id.editer_adresse_producteur).setText(producteur.adresse)
-        root.findViewById<EditText>(R.id.editer_description_producteur).setText("Une belle petite description")
-        root.findViewById<EditText>(R.id.editer_nom_producteur).setText(producteur.nom)
-        root.findViewById<EditText>(R.id.editer_prenom_producteur).setText(producteur.prenom)
-        root.findViewById<EditText>(R.id.editer_telephone_producteur).setText(producteur.telephone)
-        compteViewMode = ViewModelProvider(this).get(CompteViewMode::class.java)
-
+        })
 
 
         root.findViewById<Button>(R.id.boutton_editer_compte_valider).setOnClickListener {
-            compteViewMode.modifierProfil(ProducteurRequest(
+            appViewModel.putProducteur(ProducteurRequest(
                 root.findViewById<EditText>(R.id.editer_nom_producteur).text.toString(),
                 root.findViewById<EditText>(R.id.editer_prenom_producteur).text.toString(),
                 root.findViewById<EditText>(R.id.editer_adresse_producteur).text.toString(),
                 root.findViewById<EditText>(R.id.editer_telephone_producteur).text.toString()
             ))
-//            this.dismiss()
-
+            this.dismiss()
         }
         root.findViewById<Button>(R.id.boutton_editer_compte_annuler).setOnClickListener {
-
-//            this.dismiss()
+            this.dismiss()
         }
 
 

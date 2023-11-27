@@ -24,20 +24,17 @@ import com.google.android.material.tabs.TabLayout
 
 class AccueilFragment : Fragment() {
 
-
     private var _binding: FragmentAccueilBinding? = null
     private val binding get() = _binding!!
-    lateinit var adapter : ProduitAdapter
-    private lateinit var appViewModel: AppViewModel
 
-    //    lateinit var accueilViewModel : AccueilViewModel
-    private lateinit var store : Storage
+    lateinit var adapter : ProduitAdapter
+
+    private lateinit var appViewModel: AppViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//         accueilViewModel = ViewModelProvider(this).get(AccueilViewModel::class.java)
 
         appViewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
 
@@ -46,16 +43,16 @@ class AccueilFragment : Fragment() {
         actionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         actionBar?.setCustomView(R.layout.bar_action_accueil) // Change this to the specific layout for this fragment
 
-
         // liaison du fragment
         _binding = FragmentAccueilBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+
 
         val productRecyclerView = root.findViewById<RecyclerView>(R.id.reclyclerView_produit)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         productRecyclerView.layoutManager = layoutManager
         adapter = ProduitAdapter(emptyList(),requireContext())
-
         productRecyclerView.adapter = adapter
 
         /**
@@ -93,13 +90,6 @@ class AccueilFragment : Fragment() {
 
         return root
     }
-
-
-
-
-
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -14,8 +14,8 @@ import com.example.producteurapp.AppActivity
 import com.example.producteurapp.R
 import com.example.producteurapp.databinding.FragmentConnexionBinding
 import com.example.producteurapp.localStorage.Storage
+import com.example.producteurapp.model.request.AuthenticationRequest
 import com.example.producteurapp.network.ConnexionViewModel
-import com.example.producteurapp.request.AuthenticationRequest
 
 
 class ConnexionFragment : Fragment() {
@@ -31,13 +31,13 @@ class ConnexionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         store = Storage(requireContext())
-        val token : String = store.getToken()
-
-        if (token != "")  {
-
-            startActivity(Intent(requireActivity(), AppActivity::class.java))
-            requireActivity().finish()
-        }
+//        val token : String = store.getToken()
+//
+//        if (token != "")  {
+//
+//            startActivity(Intent(requireActivity(), AppActivity::class.java))
+//            requireActivity().finish()
+//        }
 
 
         _binding = FragmentConnexionBinding.inflate(inflater, container, false)
