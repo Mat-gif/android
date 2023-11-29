@@ -16,9 +16,12 @@ import com.example.producteurapp.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.data.Commandes
 import com.example.producteurapp.databinding.FragmentNotificationsBinding
+import com.example.producteurapp.model.Commande
 import com.example.producteurapp.model.StatutCommande
 import com.example.producteurapp.model.response.CommandeReponse
 import com.example.producteurapp.model.response.ProduitReponse
+import com.example.producteurapp.ui.compte.EditerCompteFragment
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.tabs.TabLayout
 
 class NotificationsFragment : Fragment() {
@@ -28,7 +31,6 @@ class NotificationsFragment : Fragment() {
     lateinit var adapter : CommandeAdapter
     private lateinit var appViewModel: AppViewModel
     private lateinit var produits : List<ProduitReponse>
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,7 +49,13 @@ class NotificationsFragment : Fragment() {
         val commandeRecyclerView = root.findViewById<RecyclerView>(R.id.reclyclerView_commande)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         commandeRecyclerView.layoutManager = layoutManager
-        adapter = CommandeAdapter(emptyList(),requireContext())
+        adapter = CommandeAdapter(emptyList(),requireContext()){ commande ->
+
+            appViewModel.updateCommande(commande)
+            CommandeListeProduitFragment().show(childFragmentManager,"commandeListeProduits")
+
+
+        }
 
         commandeRecyclerView.adapter = adapter
         /**
@@ -61,8 +69,8 @@ class NotificationsFragment : Fragment() {
         /**
          * Maj de la liste des commandes
          */
-        appViewModel.commandes.observe(viewLifecycleOwner, Observer { commandes ->
-            adapter.updateCommandes(commandes)
+        appViewModel.commandes.observe(viewLifecycleOwner, Observer { c ->
+            adapter.updateCommandes(c)
         })
 
 
@@ -74,18 +82,17 @@ class NotificationsFragment : Fragment() {
         root.findViewById<TabLayout>(R.id.tabs_notifications).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
-                    0 ->  appViewModel.getCommandes()
+                    0 ->  {
+
+                    }
                     1 -> {
-//                        appViewModel.getCommandes()
-                        appViewModel.updateCommandes(appViewModel.commandes.value!!.filter { it.status == StatutCommande.EN_ATTENTE_DE_VALIDATION })
+                        adapter.updateCommandes(appViewModel.commandes.value!!.filter { it.status == StatutCommande.EN_ATTENTE_DE_VALIDATION })
                     }
                     2 -> {
-//                        appViewModel.getCommandes()
-                        appViewModel.updateCommandes(appViewModel.commandes.value!!.filter { it.status == StatutCommande.VALIDE })
+                        adapter.updateCommandes(appViewModel.commandes.value!!.filter { it.status == StatutCommande.VALIDE })
                     }
                     3 -> {
-//                        appViewModel.getCommandes()
-                        appViewModel.updateCommandes(appViewModel.commandes.value!!.filter { it.status == StatutCommande.REFUS })
+                        adapter.updateCommandes(appViewModel.commandes.value!!.filter { it.status == StatutCommande.REFUS })
                     }
 
                 }
@@ -97,6 +104,12 @@ class NotificationsFragment : Fragment() {
                 // TODO : Action lorsqu'un onglet est à nouveau sélectionné
             }
         })
+
+
+//        root.findViewById<ExtendedFloatingActionButton>(R.id.commande_liste_produits).setOnClickListener {
+//            CommandeListeProduitFragment().show(childFragmentManager,"commandeListeProduits")
+//        }
+
 
 
 

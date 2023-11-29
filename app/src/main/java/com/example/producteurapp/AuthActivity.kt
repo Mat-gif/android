@@ -28,13 +28,13 @@ class AuthActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         navController.navigate(R.id.connexionFragment)
         store= Storage(getApplication())
-//        val token : String = store.getToken()
-//
-//        if (token != "")  {
-//
-//            startActivity(Intent(this, AppActivity::class.java))
-//            this.finish()
-//        }
+        val token : String = store.getToken()
+
+        if (token != "")  {
+
+            startActivity(Intent(this, AppActivity::class.java))
+            this.finish()
+        }
 
     }
 

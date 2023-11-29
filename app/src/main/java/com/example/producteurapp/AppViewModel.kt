@@ -60,6 +60,14 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     // Si sur le thread principal
     fun setCommandes(c: List<CommandeReponse>) { _commandes.value = c }
 
+    private val _commande = MutableLiveData<CommandeReponse>()
+    val commande: LiveData<CommandeReponse> = _commande
+    // Si sur un autre Thread
+    fun updateCommande(c: CommandeReponse) { _commande.postValue(c)}
+    // Si sur le thread principal
+    fun setCommande(c: CommandeReponse) { _commande.value = c }
+
+
 
 
     /**
