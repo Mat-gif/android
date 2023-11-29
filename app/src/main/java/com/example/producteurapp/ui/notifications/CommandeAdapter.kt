@@ -9,11 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.producteurapp.R
 import com.example.producteurapp.model.Commande
-
+import com.example.producteurapp.model.Produit
+import com.example.producteurapp.model.response.CommandeReponse
+import com.example.producteurapp.model.response.ProduitReponse
 
 
 class CommandeAdapter(
-    var commandes: List<Commande>,
+    var commandes: List<CommandeReponse>,
     var context: Context
 ) : RecyclerView.Adapter<CommandeAdapter.CommandeViewHolder>() {
 
@@ -31,7 +33,7 @@ class CommandeAdapter(
 
     // Méthode pour remplir les données dans la vue (appelée pour chaque élément de la liste)
     override fun onBindViewHolder(holder: CommandeViewHolder, position: Int) {
-        holder.commande_client_nom.text = commandes[position].client
+        holder.commande_client_nom.text = commandes[position].client_id
         holder.commande_date.text = commandes[position].date
         holder.commande_statut.text = commandes[position].status.toString()
         }
@@ -41,7 +43,7 @@ class CommandeAdapter(
         return commandes.size
     }
 
-    fun updateCommandes(newCommandes: List<Commande>) {
+    fun updateCommandes(newCommandes: List<CommandeReponse>) {
         commandes = newCommandes
         notifyDataSetChanged()
     }

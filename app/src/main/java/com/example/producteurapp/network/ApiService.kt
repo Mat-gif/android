@@ -5,6 +5,8 @@ package com.example.producteurapp.network
 import com.example.producteurapp.model.request.AuthenticationRequest
 import com.example.producteurapp.model.request.ProducteurRequest
 import com.example.producteurapp.model.request.ProduitRequest
+import com.example.producteurapp.model.request.RegisterRequest
+import com.example.producteurapp.model.response.CommandesReponse
 import com.example.producteurapp.model.response.ConnexionReponse
 import com.example.producteurapp.model.response.ProducteurResponse
 import com.example.producteurapp.model.response.ProduitReponse
@@ -27,6 +29,11 @@ interface ApiService {
     suspend fun connexion(@Body authenticationRequest: AuthenticationRequest): ConnexionReponse
     @PUT("/api/producteur/profil")
     suspend fun modifierProfil(@Body producteurRequest: ProducteurRequest) : ProducteurResponse
+    @POST("/api/auth/producteur/register")
+    suspend fun enregistrement(@Body registerRequest: RegisterRequest): ConnexionReponse
+    @GET("/api/producteur/commandes")
+    suspend fun afficherCommandes() : CommandesReponse
+
 
 }
 

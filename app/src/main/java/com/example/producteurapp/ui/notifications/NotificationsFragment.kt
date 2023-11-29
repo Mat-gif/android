@@ -4,32 +4,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.producteurapp.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.data.Commandes
 import com.example.producteurapp.databinding.FragmentNotificationsBinding
-import com.example.producteurapp.ui.accueil.ProduitAdapter
+import com.example.producteurapp.model.StatutCommande
+import com.example.producteurapp.model.response.CommandeReponse
+import com.example.producteurapp.model.response.ProduitReponse
 import com.google.android.material.tabs.TabLayout
 
 class NotificationsFragment : Fragment() {
-    private var commandes : Commandes = Commandes()
+
     private var _binding: FragmentNotificationsBinding? = null
     private val binding get() = _binding!!
     lateinit var adapter : CommandeAdapter
+    private lateinit var appViewModel: AppViewModel
+    private lateinit var produits : List<ProduitReponse>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        appViewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
         // Modifier la bar d'action
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
         actionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
@@ -45,13 +50,22 @@ class NotificationsFragment : Fragment() {
         adapter = CommandeAdapter(emptyList(),requireContext())
 
         commandeRecyclerView.adapter = adapter
+        /**
+         * Maj de la liste des produits
+         */
+        appViewModel.produits.observe(viewLifecycleOwner, Observer { p ->
+            produits = p
+        })
 
-        notificationsViewModel.commandeLiveData.observe(viewLifecycleOwner, Observer { commandes ->
-            // Mettre à jour la liste des produits dans l'adapter
+
+        /**
+         * Maj de la liste des commandes
+         */
+        appViewModel.commandes.observe(viewLifecycleOwner, Observer { commandes ->
             adapter.updateCommandes(commandes)
         })
 
-        notificationsViewModel.updateCommandesList(commandes.list())
+
 
 
         /**
@@ -59,12 +73,20 @@ class NotificationsFragment : Fragment() {
          */
         root.findViewById<TabLayout>(R.id.tabs_notifications).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
-
                 when (tab?.position) {
-                    0 ->  notificationsViewModel.updateCommandesList(commandes.list())
-                    1 -> notificationsViewModel.updateCommandesList(commandes.list().filter { it.status == Statut.EN_ATTENTE })
-                    2 -> notificationsViewModel.updateCommandesList(commandes.list().filter { it.status == Statut.VALIDEE })
-                    3 -> notificationsViewModel.updateCommandesList(commandes.list().filter { it.status == Statut.REFUSEE })
+                    0 ->  appViewModel.getCommandes()
+                    1 -> {
+//                        appViewModel.getCommandes()
+                        appViewModel.updateCommandes(appViewModel.commandes.value!!.filter { it.status == StatutCommande.EN_ATTENTE_DE_VALIDATION })
+                    }
+                    2 -> {
+//                        appViewModel.getCommandes()
+                        appViewModel.updateCommandes(appViewModel.commandes.value!!.filter { it.status == StatutCommande.VALIDE })
+                    }
+                    3 -> {
+//                        appViewModel.getCommandes()
+                        appViewModel.updateCommandes(appViewModel.commandes.value!!.filter { it.status == StatutCommande.REFUS })
+                    }
 
                 }
             }

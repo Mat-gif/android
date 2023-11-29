@@ -12,6 +12,7 @@ import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.Commande
 import com.example.producteurapp.model.request.ProducteurRequest
 import com.example.producteurapp.model.request.ProduitRequest
+import com.example.producteurapp.model.response.CommandeReponse
 import com.example.producteurapp.model.response.ProducteurResponse
 import com.example.producteurapp.model.response.ProduitReponse
 import com.example.producteurapp.network.ApiClient
@@ -52,12 +53,12 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * COMMANDES
      */
-    private val _commandes = MutableLiveData<List<Commande>>()
-    val commandes: LiveData<List<Commande>> = _commandes
+    private val _commandes = MutableLiveData<List<CommandeReponse>>()
+    val commandes: LiveData<List<CommandeReponse>> = _commandes
     // Si sur un autre Thread
-    fun updateCommandes(c: List<Commande>) { _commandes.postValue(c)}
+    fun updateCommandes(c: List<CommandeReponse>) { _commandes.postValue(c)}
     // Si sur le thread principal
-    fun setCommandes(c: List<Commande>) { _commandes.value = c }
+    fun setCommandes(c: List<CommandeReponse>) { _commandes.value = c }
 
 
 
@@ -75,6 +76,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 val response = apiService.publierProduit(produitRequest)
                 Log.d("POST::/api/producteur/produit", response.toString())
+                getProduits()
             } catch (e: Exception) {
                 Log.e("POST::/api/producteur/produit", e.message.toString())
                 store.clear()
@@ -142,12 +144,30 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
+     * RECUPERER LES PRODUITS PUBLIER PAR L'UTILISATEUR
+     */
+    fun getCommandes() {
+        viewModelScope.launch {
+            try {
+                val response = apiService.afficherCommandes()
+                response.commandes?.let { updateCommandes(it) }
+                Log.d("GET::/api/producteur/commandes", response.toString())
+            } catch (e: Exception) {
+                Log.e("GET::/api/producteur/commandes", e.message.toString())
+                store.clear()
+                _navigationEvent.value = NavigationEvent.LaunchNewActivity
+            }
+        }
+    }
+
+    /**
      * AU CHARGEMENT DE L'ACTIVITE
      */
     init {
         store= Storage(getApplication())
         getProducteur()
         getProduits()
+        getCommandes()
     }
 
 

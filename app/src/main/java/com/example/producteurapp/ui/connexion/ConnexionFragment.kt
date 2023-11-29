@@ -16,6 +16,7 @@ import com.example.producteurapp.databinding.FragmentConnexionBinding
 import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.request.AuthenticationRequest
 import com.example.producteurapp.network.ConnexionViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 class ConnexionFragment : Fragment() {
@@ -45,12 +46,14 @@ class ConnexionFragment : Fragment() {
 
 
             connexionVM = ViewModelProvider(this).get(ConnexionViewModel::class.java)
-
             // Example of using the connexionToApi function
+
+
+
             val authRequest = AuthenticationRequest(
                 root.findViewById<EditText>(R.id.connexion_email).text.toString(),
-                 root.findViewById<EditText>(R.id.connexion_password).text.toString()
-            )
+                root.findViewById<EditText>(R.id.connexion_password).text.toString())
+
             connexionVM.connexionToApi(authRequest)
 
             // Observe changes in status LiveData if needed
