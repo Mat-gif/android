@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.producteurapp.AppViewModel
 import com.example.producteurapp.R
-import com.example.producteurapp.data.Commandes
 import com.example.producteurapp.databinding.FragmentNotificationsBinding
 import com.example.producteurapp.model.Commande
 import com.example.producteurapp.model.StatutCommande
@@ -45,6 +44,7 @@ class NotificationsFragment : Fragment() {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        appViewModel.getCommandes()
 
         val commandeRecyclerView = root.findViewById<RecyclerView>(R.id.reclyclerView_commande)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

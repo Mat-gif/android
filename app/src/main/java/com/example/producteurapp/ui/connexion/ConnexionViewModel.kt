@@ -1,4 +1,4 @@
-package com.example.producteurapp.network
+package com.example.producteurapp.ui.connexion
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -8,10 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.request.AuthenticationRequest
 import com.example.producteurapp.model.request.RegisterRequest
-import com.example.producteurapp.model.response.ProducteurResponse
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.FirebaseApp
-import com.google.firebase.messaging.FirebaseMessaging
+import com.example.producteurapp.network.ApiClient
 
 import kotlinx.coroutines.launch
 

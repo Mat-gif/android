@@ -169,6 +169,22 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
+     * Valider ou non la commande
+     */
+    fun putCommande( request: CommandeReponse){
+        viewModelScope.launch {
+            try {
+                val response = apiService.validerCommande(request)
+                getCommandes()
+                Log.d("PUT::/api/producteur/commande", "ok")
+            } catch (e: Exception) {
+                Log.e("PUT::/api/producteur/commande", e.message.toString())
+                store.clear()
+                _navigationEvent.value = NavigationEvent.LaunchNewActivity
+            }
+        }
+    }
+    /**
      * AU CHARGEMENT DE L'ACTIVITE
      */
     init {

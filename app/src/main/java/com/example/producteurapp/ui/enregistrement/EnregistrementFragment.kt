@@ -1,6 +1,5 @@
 package com.example.producteurapp.ui.enregistrement
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,13 +9,10 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.example.producteurapp.AppActivity
 import com.example.producteurapp.R
-import com.example.producteurapp.databinding.FragmentConnexionBinding
 import com.example.producteurapp.databinding.FragmentEnregistrementBinding
 import com.example.producteurapp.model.request.RegisterRequest
-import com.example.producteurapp.network.ConnexionViewModel
-import com.google.firebase.FirebaseApp
+import com.example.producteurapp.ui.connexion.ConnexionViewModel
 import com.google.firebase.messaging.FirebaseMessaging
 
 class EnregistrementFragment : Fragment() {

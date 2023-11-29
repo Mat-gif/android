@@ -5,5 +5,5 @@ import com.example.producteurapp.model.StatutProduitQuantite
 data class ProduitQuantiteResponse(
     val id : Long?,
     val quantite : Int?,
-    val statusProduitQuantite : StatutProduitQuantite?
+    var statusProduitQuantite : StatutProduitQuantite?
 )

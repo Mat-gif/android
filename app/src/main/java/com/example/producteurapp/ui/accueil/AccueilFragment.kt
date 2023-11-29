@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.producteurapp.AppViewModel
 import com.example.producteurapp.R
-import com.example.producteurapp.data.Produits
+
 import com.example.producteurapp.databinding.FragmentAccueilBinding
 import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.response.ProduitReponse

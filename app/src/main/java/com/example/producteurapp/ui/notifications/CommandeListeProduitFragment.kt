@@ -1,12 +1,10 @@
 package com.example.producteurapp.ui.notifications
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.producteurapp.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.localStorage.Storage
-import com.example.producteurapp.model.request.ProducteurRequest
-import com.example.producteurapp.ui.accueil.ProduitAdapter
+import com.example.producteurapp.model.StatutCommande
+import com.example.producteurapp.model.response.CommandeReponse
+import com.example.producteurapp.model.response.ProduitReponse
 
 
 class CommandeListeProduitFragment : DialogFragment() {
@@ -25,8 +24,8 @@ class CommandeListeProduitFragment : DialogFragment() {
     private lateinit var store : Storage
     private lateinit var appViewModel: AppViewModel
     lateinit var adapter : CommandeListeProduitAdapter
-
-
+    lateinit var produits : List<ProduitReponse> ;
+    var commande : CommandeReponse = CommandeReponse(null,null,null,null,null)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,55 +34,66 @@ class CommandeListeProduitFragment : DialogFragment() {
         // Inflate the layout to use as a dialog or embedded fragment.
         var root = inflater.inflate(R.layout.fragment_commande_liste_produit, container, false)
         appViewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
+        appViewModel.produits.observe(viewLifecycleOwner, Observer { p ->
+            produits = p
+        })
 
 
 
         val productRecyclerView = root.findViewById<RecyclerView>(R.id.recyclerView_produit_commande)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         productRecyclerView.layoutManager = layoutManager
-        adapter = CommandeListeProduitAdapter(emptyList(),requireContext())
+        adapter = CommandeListeProduitAdapter(commande,
+            emptyList(),requireContext()){ produitQuantiteResponse ->
+            adapter.updateProduitsCommande(commande, produits)
+
+        }
         productRecyclerView.adapter = adapter
 
 
         /**
          * Maj de la liste des produits
          */
-        appViewModel.commande.observe(viewLifecycleOwner, Observer { commande ->
-            commande.produits?.let { adapter.updateProduitsCommande(it) }
+        appViewModel.commande.observe(viewLifecycleOwner, Observer { c ->
+            commande = c!!
+            adapter.updateProduitsCommande(commande, produits)
+
+            if( commande.status != StatutCommande.EN_ATTENTE_DE_VALIDATION)
+            {
+                root.findViewById<Button>(R.id.boutton_valider_commande).visibility = View.INVISIBLE
+                root.findViewById<Button>(R.id.boutton_refuser_commande).visibility = View.INVISIBLE
+            }
+            if( commande.status == StatutCommande.EN_ATTENTE_DE_VALIDATION)
+            {
+                root.findViewById<Button>(R.id.boutton_valider_commande).visibility = View.VISIBLE
+                root.findViewById<Button>(R.id.boutton_refuser_commande).visibility = View.VISIBLE
+            }
+
+
         })
 
 
-//        appViewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
-//
-//        appViewModel.profil.observe(viewLifecycleOwner, Observer { producteur ->
-//            root.findViewById<EditText>(R.id.editer_adresse_producteur).setText(producteur.adresse)
-//            root.findViewById<EditText>(R.id.editer_description_producteur).setText("Une belle petite description")
-//            root.findViewById<EditText>(R.id.editer_nom_producteur).setText(producteur.nom)
-//            root.findViewById<EditText>(R.id.editer_prenom_producteur).setText(producteur.prenom)
-//            root.findViewById<EditText>(R.id.editer_telephone_producteur).setText(producteur.telephone)
-//
-//        })
-//
-//
-//        root.findViewById<Button>(R.id.boutton_editer_compte_valider).setOnClickListener {
-//            appViewModel.putProducteur(
-//                ProducteurRequest(
-//                root.findViewById<EditText>(R.id.editer_nom_producteur).text.toString(),
-//                root.findViewById<EditText>(R.id.editer_prenom_producteur).text.toString(),
-//                root.findViewById<EditText>(R.id.editer_adresse_producteur).text.toString(),
-//                root.findViewById<EditText>(R.id.editer_telephone_producteur).text.toString()
-//            )
-//            )
-//            this.dismiss()
-//        }
-//        root.findViewById<Button>(R.id.boutton_editer_compte_annuler).setOnClickListener {
-//            this.dismiss()
-//        }
+        root.findViewById<Button>(R.id.boutton_valider_commande).setOnClickListener {
+            commande.status = StatutCommande.VALIDE
+            appViewModel.putCommande(commande)
+            this.dismiss()
+        }
+
+
+        root.findViewById<Button>(R.id.boutton_refuser_commande).setOnClickListener {
+            commande.status = StatutCommande.REFUS
+            appViewModel.putCommande(commande)
+            this.dismiss()
+        }
+
+
 
 
         return root
 
 
     }
+
+
 
 }

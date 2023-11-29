@@ -6,7 +6,7 @@
     <string name="titre_compte">Compte</string>
     <string name="text_valider">Valider</string>
     <string name="text_annuler">Annuler</string>
-
+    <string name="text_refuser">Refuser</string>
     <string name="text_pas_de_compte">Je n\'ai pas de compte</string>
     <string name="text_un_compte">J\'ai deja un compte</string>
     <string name="text_recherche">Rechercher</string>

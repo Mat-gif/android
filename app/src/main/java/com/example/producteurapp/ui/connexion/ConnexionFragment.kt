@@ -15,8 +15,6 @@ import com.example.producteurapp.R
 import com.example.producteurapp.databinding.FragmentConnexionBinding
 import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.request.AuthenticationRequest
-import com.example.producteurapp.network.ConnexionViewModel
-import com.google.firebase.messaging.FirebaseMessaging
 
 
 class ConnexionFragment : Fragment() {

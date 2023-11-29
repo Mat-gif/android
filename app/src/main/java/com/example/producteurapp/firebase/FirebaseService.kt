@@ -1,4 +1,4 @@
-package com.example.producteurapp
+package com.example.producteurapp.firebase
 
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import com.example.producteurapp.R
 
 class FirebaseService : FirebaseMessagingService() {
 
