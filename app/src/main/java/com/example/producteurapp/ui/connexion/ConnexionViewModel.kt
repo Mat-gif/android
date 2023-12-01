@@ -1,6 +1,7 @@
 package com.example.producteurapp.ui.connexion
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -40,7 +41,6 @@ class ConnexionViewModel(application: Application) : AndroidViewModel(applicatio
                 connexionResponse.token?.let { store.saveToken(it) }
                 connexionResponse.producteur?.let { store.saveProfil(it) }
                 println("#####$connexionResponse")
-
 
             } catch (e: Exception) {
                 _status.value = e.message

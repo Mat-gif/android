@@ -1,5 +1,6 @@
 package com.example.producteurapp.ui.accueil
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -30,6 +32,7 @@ class AccueilFragment : Fragment() {
     lateinit var adapter : ProduitAdapter
 
     private lateinit var appViewModel: AppViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -43,6 +43,18 @@
         <item>FRUIT</item>
         <item>LEGUME</item>
         <item>AUTRE</item>
+        <item>MIEL</item>
+        <item>VIANDE</item>
+        <item>POISSON</item>
+
     </string-array>
+
+    <string-array name="categorie_producteur">
+        <item>AGRICULTEUR</item>
+        <item>PECHEUR</item>
+        <item>APICULTEUR</item>
+
+    </string-array>
+
 
 </resources>

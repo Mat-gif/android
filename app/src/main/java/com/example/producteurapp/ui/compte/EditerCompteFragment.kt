@@ -1,30 +1,30 @@
 package com.example.producteurapp.ui.compte
 
 
-import android.app.Dialog
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import com.example.producteurapp.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.localStorage.Storage
+import com.example.producteurapp.model.CategorieProducteur
+import com.example.producteurapp.model.CategorieProduit
 import com.example.producteurapp.model.request.ProducteurRequest
-import com.example.producteurapp.model.response.ProducteurResponse
 
 
 class EditerCompteFragment : DialogFragment() {
 
     private lateinit var store : Storage
     private lateinit var appViewModel: AppViewModel
-
+    lateinit var categorieProducteur: CategorieProducteur
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +43,22 @@ class EditerCompteFragment : DialogFragment() {
             root.findViewById<EditText>(R.id.editer_prenom_producteur).setText(producteur.prenom)
             root.findViewById<EditText>(R.id.editer_telephone_producteur).setText(producteur.telephone)
 
+
         })
+
+        val autoCompleteTextView = root.findViewById<AutoCompleteTextView>(R.id.editer_categorie_producteur)
+
+        autoCompleteTextView.setOnItemClickListener { parent, _, position, _ ->
+            val selectedItem = parent.getItemAtPosition(position).toString()
+            when (selectedItem) {
+                "APICULTEUR" -> categorieProducteur = CategorieProducteur.APICULTEUR
+                "AGRICULTEUR" -> categorieProducteur = CategorieProducteur.AGRICULTEUR
+                "PECHEUR" -> categorieProducteur = CategorieProducteur.PECHEUR
+
+            }
+
+            println("Élément sélectionné : $selectedItem")
+        }
 
 
         root.findViewById<Button>(R.id.boutton_editer_compte_valider).setOnClickListener {
@@ -51,7 +66,8 @@ class EditerCompteFragment : DialogFragment() {
                 root.findViewById<EditText>(R.id.editer_nom_producteur).text.toString(),
                 root.findViewById<EditText>(R.id.editer_prenom_producteur).text.toString(),
                 root.findViewById<EditText>(R.id.editer_adresse_producteur).text.toString(),
-                root.findViewById<EditText>(R.id.editer_telephone_producteur).text.toString()
+                root.findViewById<EditText>(R.id.editer_telephone_producteur).text.toString(),
+                categorieProducteur
             ))
             this.dismiss()
         }

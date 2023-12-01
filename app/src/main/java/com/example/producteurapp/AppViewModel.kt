@@ -1,15 +1,14 @@
 package com.example.producteurapp
 
 import android.app.Application
-import android.content.Intent
+import android.os.Build
 import android.util.Log
-import androidx.core.content.ContextCompat.startActivity
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.producteurapp.localStorage.Storage
-import com.example.producteurapp.model.Commande
 import com.example.producteurapp.model.request.ProducteurRequest
 import com.example.producteurapp.model.request.ProduitRequest
 import com.example.producteurapp.model.response.CommandeReponse
@@ -17,7 +16,6 @@ import com.example.producteurapp.model.response.ProducteurResponse
 import com.example.producteurapp.model.response.ProduitReponse
 import com.example.producteurapp.network.ApiClient
 import kotlinx.coroutines.launch
-
 
 
 class AppViewModel(application: Application) : AndroidViewModel(application) {
@@ -87,9 +85,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 getProduits()
             } catch (e: Exception) {
                 Log.e("POST::/api/producteur/produit", e.message.toString())
-                store.clear()
-                _navigationEvent.value = NavigationEvent.LaunchNewActivity
-
+                if(store.isExpired()){
+                    store.clear()
+                    _navigationEvent.value = NavigationEvent.LaunchNewActivity
+                }
             }
         }
     }
@@ -105,9 +104,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 Log.d("GET::/api/producteur/produit", response.toString())
             } catch (e: Exception) {
                 Log.e("GET::/api/producteur/produit", e.message.toString())
-                store.clear()
-                _navigationEvent.value = NavigationEvent.LaunchNewActivity
-
+                if(store.isExpired()){
+                    store.clear()
+                    _navigationEvent.value = NavigationEvent.LaunchNewActivity
+                }
             }
         }
     }
@@ -123,9 +123,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 Log.d("GET::/api/producteur/profil", response.toString())
             } catch (e: Exception) {
                 Log.e("GET::/api/producteur/profil", e.message.toString())
-                store.clear()
-                _navigationEvent.value = NavigationEvent.LaunchNewActivity
-
+                if(store.isExpired()){
+                    store.clear()
+                    _navigationEvent.value = NavigationEvent.LaunchNewActivity
+                }
 
             }
         }
@@ -144,8 +145,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 println("#####$response")
             } catch (e: Exception) {
                 Log.e("PUT::/api/producteur/profil", e.message.toString())
-                store.clear()
-                _navigationEvent.value = NavigationEvent.LaunchNewActivity
+                if(store.isExpired()){
+                    store.clear()
+                    _navigationEvent.value = NavigationEvent.LaunchNewActivity
+                }
 
             }
         }
@@ -162,8 +165,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 Log.d("GET::/api/producteur/commandes", response.toString())
             } catch (e: Exception) {
                 Log.e("GET::/api/producteur/commandes", e.message.toString())
-                store.clear()
-                _navigationEvent.value = NavigationEvent.LaunchNewActivity
+                if(store.isExpired()){
+                    store.clear()
+                    _navigationEvent.value = NavigationEvent.LaunchNewActivity
+                }
             }
         }
     }
@@ -179,8 +184,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 Log.d("PUT::/api/producteur/commande", "ok")
             } catch (e: Exception) {
                 Log.e("PUT::/api/producteur/commande", e.message.toString())
-                store.clear()
-                _navigationEvent.value = NavigationEvent.LaunchNewActivity
+                if(store.isExpired()) {
+                    store.clear()
+                    _navigationEvent.value = NavigationEvent.LaunchNewActivity
+                }
             }
         }
     }
@@ -189,6 +196,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
      */
     init {
         store= Storage(getApplication())
+        Log.d("HELLOWORD",store.decodeToken())
+        Log.d("HELLOWORD",store.isExpired().toString())
         getProducteur()
         getProduits()
         getCommandes()

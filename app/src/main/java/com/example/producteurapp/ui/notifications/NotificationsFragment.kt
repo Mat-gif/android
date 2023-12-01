@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,12 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.producteurapp.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.databinding.FragmentNotificationsBinding
-import com.example.producteurapp.model.Commande
 import com.example.producteurapp.model.StatutCommande
-import com.example.producteurapp.model.response.CommandeReponse
 import com.example.producteurapp.model.response.ProduitReponse
-import com.example.producteurapp.ui.compte.EditerCompteFragment
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.tabs.TabLayout
 
 class NotificationsFragment : Fragment() {

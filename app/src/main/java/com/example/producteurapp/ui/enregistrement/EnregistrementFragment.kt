@@ -18,7 +18,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 class EnregistrementFragment : Fragment() {
     private var _binding: FragmentEnregistrementBinding? = null
     private val binding get() = _binding!!
-    private var token : String = ""
     private lateinit var connexionVM: ConnexionViewModel
 
     override fun onCreateView(
@@ -38,17 +37,14 @@ class EnregistrementFragment : Fragment() {
         root.findViewById<Button>(R.id.bouton_enregistrer).setOnClickListener {
 
 
-            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    token = task.result
+
                     connexionVM = ViewModelProvider(this).get(ConnexionViewModel::class.java)
 
 
                     val registerRequest = RegisterRequest(
                         root.findViewById<EditText>(R.id.enregistrement_email).text.toString(),
                         root.findViewById<EditText>(R.id.enregistrement_password).text.toString(),
-                        root.findViewById<EditText>(R.id.enregistrement_nom).text.toString(),
-                        token
+                        root.findViewById<EditText>(R.id.enregistrement_nom).text.toString()
                     )
 
 
@@ -64,12 +60,12 @@ class EnregistrementFragment : Fragment() {
 
                     }
 
-                }
+
             }
 
 
 
-        }
+
         return root
     }
 

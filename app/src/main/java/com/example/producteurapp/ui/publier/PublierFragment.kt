@@ -6,8 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -18,7 +22,9 @@ import com.example.producteurapp.AppActivity
 import com.example.producteurapp.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.databinding.FragmentPublierBinding
+import com.example.producteurapp.model.CategorieProduit
 import com.example.producteurapp.model.request.ProduitRequest
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
 class PublierFragment : Fragment() {
 
@@ -31,6 +37,7 @@ class PublierFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var appViewModel: AppViewModel
+    lateinit var categorieProduit: CategorieProduit
 
     @SuppressLint("ResourceType")
     override fun onCreateView(
@@ -48,8 +55,25 @@ class PublierFragment : Fragment() {
         _binding = FragmentPublierBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        root.findViewById<Button>(R.id.bouton_publier).setOnClickListener {
 
+        val autoCompleteTextView = root.findViewById<AutoCompleteTextView>(R.id.publier_categorie)
+
+        autoCompleteTextView.setOnItemClickListener { parent, _, position, _ ->
+            val selectedItem = parent.getItemAtPosition(position).toString()
+            when (selectedItem) {
+                "AUTRE" -> categorieProduit = CategorieProduit.AUTRES
+                "FRUIT" -> categorieProduit = CategorieProduit.FRUIT
+                "LEGUME" -> categorieProduit = CategorieProduit.LEGUMES
+                "MIEL" -> categorieProduit = CategorieProduit.MIEL
+                "POISSON" -> categorieProduit = CategorieProduit.POISSON
+                "VIANDE" -> categorieProduit = CategorieProduit.VIANDE
+
+            }
+
+            println("Élément sélectionné : $selectedItem")
+        }
+
+        root.findViewById<Button>(R.id.bouton_publier).setOnClickListener {
 
 
 
@@ -58,7 +82,8 @@ class PublierFragment : Fragment() {
                 root.findViewById<EditText>(R.id.publier_nom_produit).text.toString(),
                 root.findViewById<EditText>(R.id.publier_prix).text.toString().toDouble(),
                 root.findViewById<EditText>(R.id.publier_description).text.toString(),
-                root.findViewById<EditText>(R.id.publier_quantite).text.toString().toInt()
+                root.findViewById<EditText>(R.id.publier_quantite).text.toString().toInt(),
+                categorieProduit
             )
 
             appViewModel.postProduit(produitRequest)

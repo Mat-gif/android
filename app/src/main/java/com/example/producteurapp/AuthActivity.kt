@@ -3,17 +3,10 @@ package com.example.producteurapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.findNavController
+import android.util.Log
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.producteurapp.databinding.ActivityAuthBinding
-import com.example.producteurapp.databinding.ActivityMainBinding
 import com.example.producteurapp.localStorage.Storage
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.FirebaseApp
-import com.google.firebase.messaging.FirebaseMessaging
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
@@ -30,10 +23,16 @@ class AuthActivity : AppCompatActivity() {
         store= Storage(getApplication())
         val token : String = store.getToken()
 
-        if (token != "")  {
+
+
+        if (token != "" && !store.isExpired())  {
+
+
 
             startActivity(Intent(this, AppActivity::class.java))
             this.finish()
+        }else{
+            store.clear()
         }
 
     }

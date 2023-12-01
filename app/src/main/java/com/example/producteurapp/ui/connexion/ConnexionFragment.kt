@@ -15,11 +15,15 @@ import com.example.producteurapp.R
 import com.example.producteurapp.databinding.FragmentConnexionBinding
 import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.request.AuthenticationRequest
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 class ConnexionFragment : Fragment() {
     private var _binding: FragmentConnexionBinding? = null
     private lateinit var connexionVM: ConnexionViewModel
+    private var token : String = ""
+
+
     private val binding get() = _binding!!
 //    private lateinit var http : Http
 //    private lateinit var response : HttpResponse
@@ -41,34 +45,30 @@ class ConnexionFragment : Fragment() {
         }
         root.findViewById<Button>(R.id.bouton_connexion).setOnClickListener {
 
+            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    token = task.result
 
+                    connexionVM = ViewModelProvider(this).get(ConnexionViewModel::class.java)
+                    // Example of using the connexionToApi function
+                    val authRequest = AuthenticationRequest(
+                        root.findViewById<EditText>(R.id.connexion_email).text.toString(),
+                        root.findViewById<EditText>(R.id.connexion_password).text.toString(),
+                        token
+                    )
+                    connexionVM.connexionToApi(authRequest)
 
-            connexionVM = ViewModelProvider(this).get(ConnexionViewModel::class.java)
-            // Example of using the connexionToApi function
+                    // Observe changes in status LiveData if needed
+                    connexionVM.status.observe(viewLifecycleOwner) { status ->
 
-
-
-            val authRequest = AuthenticationRequest(
-                root.findViewById<EditText>(R.id.connexion_email).text.toString(),
-                root.findViewById<EditText>(R.id.connexion_password).text.toString())
-
-            connexionVM.connexionToApi(authRequest)
-
-            // Observe changes in status LiveData if needed
-            connexionVM.status.observe(viewLifecycleOwner) { status ->
-
-                if (status == "200"){
-                    startActivity(Intent(requireActivity(), AppActivity::class.java))
-                    requireActivity().finish()
+                        if (status == "200") {
+                            startActivity(Intent(requireActivity(), AppActivity::class.java))
+                            requireActivity().finish()
+                        }
+                    }
                 }
-
             }
-
         }
-
-
-
-
         return root
     }
 

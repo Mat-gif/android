@@ -1,30 +1,17 @@
 package com.example.producteurapp
 
-import android.annotation.SuppressLint
+
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
-import android.location.GnssAntennaInfo.Listener
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.producteurapp.databinding.ActivityMainBinding
-import com.google.android.material.badge.BadgeDrawable
-import com.google.android.material.badge.BadgeUtils
-import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 
 class AppActivity : AppCompatActivity() {

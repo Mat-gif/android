@@ -51,11 +51,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp" />
+
                 <TextView
                     android:id="@+id/produit_prix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:drawableEnd="@drawable/ic_euro_24"
+                    android:drawablePadding="5dp"
                     android:text="5.2"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />
