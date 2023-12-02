@@ -37,6 +37,14 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     fun setProduits(p: List<ProduitReponse>) { _produits.value = p }
 
 
+    private val _produit = MutableLiveData<ProduitReponse>()
+    val produit: LiveData<ProduitReponse> = _produit
+    // Si sur un autre Thread
+    fun updateProduit(p: ProduitReponse) { _produit.postValue(p)}
+    // Si sur le thread principal
+    fun setProduit(p: ProduitReponse) { _produit.value = p }
+
+
     /**
      * PROFIL
      */
@@ -145,6 +153,24 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 println("#####$response")
             } catch (e: Exception) {
                 Log.e("PUT::/api/producteur/profil", e.message.toString())
+                if(store.isExpired()){
+                    store.clear()
+                    _navigationEvent.value = NavigationEvent.LaunchNewActivity
+                }
+
+            }
+        }
+    }
+
+    fun putProduit(produitRequest: ProduitRequest) {
+        viewModelScope.launch {
+            try {
+                val response = apiService.modifierProduit(produitRequest)
+                getProduits()
+                Log.d("PUT::/api/producteur/produit", response.toString())
+                println("#####$response")
+            } catch (e: Exception) {
+                Log.e("PUT::/api/producteur/produit", e.message.toString())
                 if(store.isExpired()){
                     store.clear()
                     _navigationEvent.value = NavigationEvent.LaunchNewActivity

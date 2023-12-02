@@ -22,6 +22,7 @@ import com.example.producteurapp.R
 import com.example.producteurapp.databinding.FragmentAccueilBinding
 import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.response.ProduitReponse
+import com.example.producteurapp.ui.notifications.CommandeListeProduitFragment
 import com.google.android.material.tabs.TabLayout
 
 class AccueilFragment : Fragment() {
@@ -55,8 +56,13 @@ class AccueilFragment : Fragment() {
         val productRecyclerView = root.findViewById<RecyclerView>(R.id.reclyclerView_produit)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         productRecyclerView.layoutManager = layoutManager
-        adapter = ProduitAdapter(emptyList(),requireContext())
+        adapter = ProduitAdapter(emptyList(),requireContext()){ prod ->
+            appViewModel.updateProduit(prod)
+            EditerProduitFragment().show(childFragmentManager,"EditerProduitFragment")
+
+        }
         productRecyclerView.adapter = adapter
+
 
         /**
          * Maj de la liste des produits

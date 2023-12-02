@@ -86,6 +86,7 @@
         android:layout_marginBottom="20dp"
         app:icon="@drawable/ic_editer_noir_24"
         app:iconPadding="6sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

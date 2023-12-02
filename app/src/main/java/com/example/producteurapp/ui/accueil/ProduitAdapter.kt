@@ -7,26 +7,44 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.producteurapp.R
 import com.example.producteurapp.model.Produit
+import com.example.producteurapp.model.response.CommandeReponse
 import com.example.producteurapp.model.response.ProduitReponse
 
 
 class ProduitAdapter(
     var products: List<ProduitReponse>,
-    var context: Context
+    var context: Context,
+    private val onItemClick: (ProduitReponse) -> Unit // Ajoutez un paramètre de fonction pour l'OnClick
+
 ) : RecyclerView.Adapter<ProduitAdapter.ProtuctViewHolder>() {
 
     class ProtuctViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var produit_nom: TextView = itemView.findViewById(R.id.produit_nom)
         var produit_prix: TextView = itemView.findViewById(R.id.produit_prix)
         var produit_date: TextView = itemView.findViewById(R.id.produit_date)
+
+
+    }
+    interface OnCommandeClickListener {
+        fun onCommandeClick(position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProtuctViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.produit_card, parent, false)
         val viewHolder = ProtuctViewHolder(view)
+
+        viewHolder.itemView.setOnClickListener {
+            val position = viewHolder.adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                onItemClick(products[position])
+                Log.d("CommandeAdapter", "Item Clicked: ${products[position].nom}")
+            }
+        }
+
         return viewHolder
     }
 

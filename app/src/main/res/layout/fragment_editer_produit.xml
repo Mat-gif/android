@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".ui.compte.EditerCompteFragment">
+    tools:context=".ui.accueil.EditerProduitFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,21 +18,21 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Editer le profil"
+            android:text="Editer produit"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="?attr/textInputFilledStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:hint="@string/text_hint_nom"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:hint="@string/text_hint_produit">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editer_nom_producteur"
+                android:id="@+id/editer_nom_produit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="50"
@@ -43,53 +43,33 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout45"
             style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/text_categorie"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout1">
+            android:hint="@string/text_categorie">
 
             <AutoCompleteTextView
-                android:id="@+id/editer_categorie_producteur"
+                android:id="@+id/editer_categorie_produit"
+                app:simpleItems="@array/categorie_produit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                app:simpleItems="@array/categorie_producteur" />
+                android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="?attr/textInputFilledStyle"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:hint="@string/text_hint_prenom"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editer_prenom_producteur"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLength="50"
-                android:maxLines="1" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="?attr/textInputFilledStyle"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:hint="@string/text_hint_adresse"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_adresse_noir_24">
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:hint="@string/text_hint_prix">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editer_adresse_producteur"
+                android:id="@+id/editer_prix_produit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="50"
@@ -99,21 +79,19 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="?attr/textInputFilledStyle"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:hint="@string/text_hint_telephone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_phone_noir_24">
+            app:startIconDrawable="@drawable/ic_adresse_noir_24"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:hint="@string/text_hint_quantite">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editer_telephone_producteur"
+                android:id="@+id/editer_quantite_produit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-
                 android:maxLength="50"
                 android:maxLines="1" />
 
@@ -121,16 +99,16 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="?attr/textInputFilledStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:hint="@string/text_hint_description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:hint="@string/text_hint_description">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editer_description_producteur"
+                android:id="@+id/editer_description_produit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="3"
@@ -147,23 +125,22 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/boutton_editer_compte_annuler"
+                android:id="@+id/boutton_editer_produit_annuler"
                 style="@style/Widget.Material3.Button.TextButton.Icon"
+                app:icon="@drawable/ic_annuler_noir_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_annuler"
-                app:icon="@drawable/ic_annuler_noir_24" />
+                android:text="@string/text_annuler" />
 
             <Button
-                android:id="@+id/boutton_editer_compte_valider"
+                android:id="@+id/boutton_editer_produit_valider"
                 style="@style/Widget.Material3.Button.TextButton.Icon"
+                app:icon="@drawable/ic_valider_noir_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_valider"
-                app:icon="@drawable/ic_valider_noir_24" />
+                android:text="@string/text_valider" />
         </LinearLayout>
 
 
     </LinearLayout>
-
 </FrameLayout>

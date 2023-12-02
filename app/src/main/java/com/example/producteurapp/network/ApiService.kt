@@ -40,5 +40,7 @@ interface ApiService {
     @PUT("/api/producteur/commande")
     suspend fun validerCommande(@Body request : CommandeReponse)
 
+    @PUT("/api/producteur/produit")
+    suspend fun modifierProduit(@Body produitRequest: ProduitRequest) : ProduitReponse
 }
 
