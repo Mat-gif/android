@@ -33,7 +33,7 @@ class ProduitAdapter(
     override fun onBindViewHolder(holder: ProtuctViewHolder, position: Int) {
         holder.produit_nom.text = products[position].nom
         holder.produit_prix.text = products[position].prix.toString()
-        holder.produit_date.text = products[position].date_publication
+        holder.produit_date.text = products[position].date_publication.toString()
         }
 
     override fun getItemCount(): Int {

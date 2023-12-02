@@ -1,5 +1,6 @@
 package com.example.producteurapp.model.response
 
+import com.example.producteurapp.model.CategorieProduit
 
 
 data class ProduitReponse(
@@ -9,5 +10,6 @@ data class ProduitReponse(
     val description : String?,
     val quantite : Int?,
     val emailProducteur : String?,
-    val  date_publication : String?
+    val  date_publication : String?,
+    val categorie : CategorieProduit?
 )
