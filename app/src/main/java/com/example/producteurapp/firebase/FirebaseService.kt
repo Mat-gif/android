@@ -16,7 +16,7 @@ import com.example.producteurapp.R
 class FirebaseService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
-        Log.d("FIREBASE", message.data.toString())
+        Log.d("FIREBASE_BAM", message.data.toString())
 
         // Récupérer les données du message
         val data = message.data

@@ -63,7 +63,7 @@ class PublierFragment : Fragment() {
             when (selectedItem) {
                 "AUTRE" -> categorieProduit = CategorieProduit.AUTRES
                 "FRUIT" -> categorieProduit = CategorieProduit.FRUIT
-                "LEGUME" -> categorieProduit = CategorieProduit.LEGUMES
+                "LEGUME" -> categorieProduit = CategorieProduit.LEGUME
                 "MIEL" -> categorieProduit = CategorieProduit.MIEL
                 "POISSON" -> categorieProduit = CategorieProduit.POISSON
                 "VIANDE" -> categorieProduit = CategorieProduit.VIANDE

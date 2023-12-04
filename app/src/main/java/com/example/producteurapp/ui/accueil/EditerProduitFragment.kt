@@ -52,7 +52,7 @@ class EditerProduitFragment : DialogFragment() {
             when (selectedItem) {
                 "AUTRE" -> categorie = CategorieProduit.AUTRES
                 "FRUIT" -> categorie = CategorieProduit.FRUIT
-                "LEGUME" -> categorie = CategorieProduit.LEGUMES
+                "LEGUME" -> categorie = CategorieProduit.LEGUME
                 "MIEL" -> categorie = CategorieProduit.MIEL
                 "POISSON" -> categorie = CategorieProduit.POISSON
                 "VIANDE" -> categorie = CategorieProduit.VIANDE

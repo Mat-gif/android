@@ -4,7 +4,7 @@ enum class CategorieProduit {
     POISSON,
     MIEL,
     FRUIT,
-    LEGUMES,
+    LEGUME,
     VIANDE,
     AUTRES
 }
