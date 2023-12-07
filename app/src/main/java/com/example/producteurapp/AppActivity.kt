@@ -12,6 +12,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.producteurapp.databinding.ActivityMainBinding
+import com.example.producteurapp.localStorage.Storage
+import com.example.producteurapp.ui.compte.EditerCompteFragment
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.firebase.FirebaseApp
 
 class AppActivity : AppCompatActivity() {
@@ -19,12 +22,14 @@ class AppActivity : AppCompatActivity() {
 
     private lateinit var appViewModel: AppViewModel
 
+    private lateinit var store : Storage
 
     @androidx.annotation.OptIn(com.google.android.material.badge.ExperimentalBadgeUtils::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         FirebaseApp.initializeApp(this)
+        store= Storage(this)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.nav_view)
         val navController = findNavController(R.id.nav_app)
@@ -64,6 +69,13 @@ class AppActivity : AppCompatActivity() {
                 else -> {}
             }
         }
+
+        findViewById<ExtendedFloatingActionButton>(R.id.logout).setOnClickListener {
+            store.clear()
+            startActivity(Intent(this, AuthActivity::class.java))
+            this.finish()
+        }
+
 
 
     }

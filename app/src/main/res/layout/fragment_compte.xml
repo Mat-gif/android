@@ -50,7 +50,7 @@
         android:id="@+id/compte_editer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="10dp"
         app:icon="@drawable/ic_editer_noir_24"
         app:iconPadding="6sp"

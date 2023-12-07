@@ -18,12 +18,14 @@ import com.example.producteurapp.model.CategorieProducteur
 import com.example.producteurapp.model.CategorieProduit
 import com.example.producteurapp.model.request.ProducteurRequest
 import com.example.producteurapp.model.request.ProduitRequest
+import com.example.producteurapp.model.response.ProduitReponse
 
 class EditerProduitFragment : DialogFragment() {
 
     private lateinit var store : Storage
     private lateinit var appViewModel: AppViewModel
     lateinit var categorie: CategorieProduit
+    lateinit var produit : ProduitReponse
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,12 +65,16 @@ class EditerProduitFragment : DialogFragment() {
         }
 
 
+        appViewModel.produit.observe(viewLifecycleOwner, Observer { p ->
+          produit = p
+        })
+
 
 
         root.findViewById<Button>(R.id.boutton_editer_produit_valider).setOnClickListener {
             appViewModel.putProduit(
                 ProduitRequest(
-                    1,
+                    produit.id!!,
                 root.findViewById<EditText>(R.id.editer_nom_produit).text.toString(),
                 root.findViewById<EditText>(R.id.editer_prix_produit).text.toString().toDouble(),
                 root.findViewById<EditText>(R.id.editer_description_produit).text.toString(),
