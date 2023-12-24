@@ -10,16 +10,13 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.producteurapp.R
-import com.example.producteurapp.model.Commande
-import com.example.producteurapp.model.Produit
-import com.example.producteurapp.model.response.CommandeReponse
-import com.example.producteurapp.model.response.ProduitReponse
+import com.example.producteurapp.model.CommandeDTO
 
 
 class CommandeAdapter(
-    var commandes: List<CommandeReponse>,
+    var commandes: List<CommandeDTO>,
     var context: Context,
-    private val onItemClick: (CommandeReponse) -> Unit // Ajoutez un paramètre de fonction pour l'OnClick
+    private val onItemClick: (CommandeDTO) -> Unit // Ajoutez un paramètre de fonction pour l'OnClick
 ) : RecyclerView.Adapter<CommandeAdapter.CommandeViewHolder>() {
 
     class CommandeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -60,7 +57,7 @@ class CommandeAdapter(
         return commandes.size
     }
 
-    fun updateCommandes(newCommandes: List<CommandeReponse>) {
+    fun updateCommandes(newCommandes: List<CommandeDTO>) {
         commandes = newCommandes
         notifyDataSetChanged()
     }

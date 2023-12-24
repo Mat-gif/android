@@ -1,10 +1,12 @@
 package com.example.producteurapp.model.response
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.producteurapp.model.CategorieProduit
 
-
+@Entity(tableName = "produits")
 data class ProduitReponse(
-    val id : Long?,
+    @PrimaryKey val id : Long?,
     val nom :String?,
     val prix : Double?,
     val description : String?,

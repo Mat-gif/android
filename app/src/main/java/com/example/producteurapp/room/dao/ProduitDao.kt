@@ -1,0 +1,29 @@
+package com.example.producteurapp.room.dao
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.example.producteurapp.model.response.ProduitReponse
+
+@Dao
+interface ProduitDao {
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllProduducts(vararg p: ProduitReponse)
+
+    @Query("SELECT * FROM produits")
+    fun getAllProduducts(): List<ProduitReponse>
+
+//
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertProduits(produits: List<ProduitReponse>)
+//
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertProduit(produit: ProduitReponse)
+//
+//    @Query("SELECT * FROM produits") // Remplacez "produitreponse" par le nom réel de votre table
+//    fun getAllProduits(): List<ProduitReponse>
+
+}

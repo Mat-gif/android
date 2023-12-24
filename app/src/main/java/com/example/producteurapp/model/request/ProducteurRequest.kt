@@ -8,4 +8,4 @@ data class ProducteurRequest(
     val  adresse: String,
     val  telephone: String,
     val  categorie : CategorieProducteur
-)
+) : Request()

@@ -10,16 +10,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.producteurapp.R
-import com.example.producteurapp.model.Produit
 import com.example.producteurapp.model.StatutCommande
 import com.example.producteurapp.model.StatutProduitQuantite
-import com.example.producteurapp.model.response.CommandeReponse
+import com.example.producteurapp.model.CommandeDTO
 import com.example.producteurapp.model.response.ProduitQuantiteResponse
 import com.example.producteurapp.model.response.ProduitReponse
 
 
 class CommandeListeProduitAdapter(
-    var commande: CommandeReponse,
+    var commande: CommandeDTO,
     var produits: List<ProduitReponse>,
     var context: Context,
     private val onItemClick: (ProduitQuantiteResponse) -> Unit // Ajoutez un paramètre de fonction pour l'OnClick
@@ -108,7 +107,7 @@ class CommandeListeProduitAdapter(
         return commande.produits!!.size
     }
 
-    fun updateProduitsCommande(newCommande: CommandeReponse, newProduits : List<ProduitReponse>) {
+    fun updateProduitsCommande(newCommande: CommandeDTO, newProduits : List<ProduitReponse>) {
         commande = newCommande
         produits = newProduits
         notifyDataSetChanged()

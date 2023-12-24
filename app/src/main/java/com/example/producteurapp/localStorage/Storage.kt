@@ -75,7 +75,6 @@ fun clear()
             val header = String(Base64.getUrlDecoder().decode(parts[0].toByteArray(charset)), charset)
             val payload = String(Base64.getUrlDecoder().decode(parts[1].toByteArray(charset)), charset)
 
-
             "${parsePayloadToMap(payload)["exp"]}"
         } catch (e: Exception) {
             "Error parsing JWT: $e"

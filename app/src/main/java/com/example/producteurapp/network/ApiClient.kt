@@ -10,7 +10,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 
 class ApiClient(private val context: Context) {
-    private val BASE_URL = "https://3236-193-56-243-85.ngrok.io"
+    private val BASE_URL = "http://10.0.2.2:8080"
 
 
     private val retrofit: Retrofit by lazy {
@@ -20,7 +20,7 @@ class ApiClient(private val context: Context) {
 
         val httpClient = OkHttpClient.Builder()
 
-        // Récupération du token à partir du contexte
+        // Récupération du token
         val token = retrieveTokenFromStorage(context)
         if (token.isNotEmpty() && token != "") {
             val authInterceptor = AuthInterceptor(token)

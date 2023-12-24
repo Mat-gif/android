@@ -10,11 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.producteurapp.AppViewModel
+import com.example.producteurapp.viewmodel.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.StatutCommande
-import com.example.producteurapp.model.response.CommandeReponse
+import com.example.producteurapp.model.CommandeDTO
 import com.example.producteurapp.model.response.ProduitReponse
 
 
@@ -25,7 +25,7 @@ class CommandeListeProduitFragment : DialogFragment() {
     private lateinit var appViewModel: AppViewModel
     lateinit var adapter : CommandeListeProduitAdapter
     lateinit var produits : List<ProduitReponse> ;
-    var commande : CommandeReponse = CommandeReponse(null,null,null,null,null)
+    var commande : CommandeDTO = CommandeDTO(null,null,null,null,null)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,7 +34,7 @@ class CommandeListeProduitFragment : DialogFragment() {
         // Inflate the layout to use as a dialog or embedded fragment.
         var root = inflater.inflate(R.layout.fragment_commande_liste_produit, container, false)
         appViewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
-        appViewModel.produits.observe(viewLifecycleOwner, Observer { p ->
+        appViewModel.productsViewModel.produits.observe(viewLifecycleOwner, Observer { p ->
             produits = p
         })
 
@@ -54,7 +54,7 @@ class CommandeListeProduitFragment : DialogFragment() {
         /**
          * Maj de la liste des produits
          */
-        appViewModel.commande.observe(viewLifecycleOwner, Observer { c ->
+        appViewModel.ordersViewModel.commande.observe(viewLifecycleOwner, Observer { c ->
             commande = c!!
             adapter.updateProduitsCommande(commande, produits)
 
@@ -73,18 +73,10 @@ class CommandeListeProduitFragment : DialogFragment() {
         })
 
 
-        root.findViewById<Button>(R.id.boutton_valider_commande).setOnClickListener {
-            commande.status = StatutCommande.VALIDE
-            appViewModel.putCommande(commande)
-            this.dismiss()
-        }
 
 
-        root.findViewById<Button>(R.id.boutton_refuser_commande).setOnClickListener {
-            commande.status = StatutCommande.REFUS
-            appViewModel.putCommande(commande)
-            this.dismiss()
-        }
+        root.findViewById<Button>(R.id.boutton_valider_commande).setOnClickListener {listenerAction(StatutCommande.VALIDE)}
+        root.findViewById<Button>(R.id.boutton_refuser_commande).setOnClickListener {StatutCommande.REFUS }
 
 
 
@@ -92,6 +84,14 @@ class CommandeListeProduitFragment : DialogFragment() {
         return root
 
 
+    }
+
+
+    private fun listenerAction(status : StatutCommande)
+    {
+        commande.status = status
+        appViewModel.put(commande)
+        this.dismiss()
     }
 
 

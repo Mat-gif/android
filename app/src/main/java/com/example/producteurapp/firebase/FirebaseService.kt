@@ -17,25 +17,18 @@ class FirebaseService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         Log.d("FIREBASE_BAM", message.data.toString())
-
         // Récupérer les données du message
         val data = message.data
-
         val body = data["message"]
-
-
         val handler = Handler(Looper.getMainLooper())
 
         handler.post{
             Toast.makeText(this, "Nouvelle commande en attente!", Toast.LENGTH_LONG).show()
-        }        // Créer un ID de notification unique
+        }
 
-
-        val notificationId = 1 // Vous pouvez utiliser un ID unique pour chaque notification
-
-        // Créer le canal de notification pour les versions Android Oreo et supérieures
-        val channelId = "your_channel_id"
-        val channelName = "Your Channel Name"
+        val notificationId = 1
+        val channelId = "app_commerce"
+        val channelName = "app_commercer_pro"
         createNotificationChannel(channelId, channelName)
 
         // Construire la notification
@@ -49,8 +42,7 @@ class FirebaseService : FirebaseMessagingService() {
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
-
-    // Créer le canal de notification pour les versions Android Oreo et supérieures
+    
     private fun createNotificationChannel(channelId: String, channelName: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)

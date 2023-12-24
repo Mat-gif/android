@@ -12,11 +12,10 @@ import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.producteurapp.AppViewModel
+import com.example.producteurapp.viewmodel.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.CategorieProducteur
-import com.example.producteurapp.model.CategorieProduit
 import com.example.producteurapp.model.request.ProducteurRequest
 
 
@@ -36,7 +35,7 @@ class EditerCompteFragment : DialogFragment() {
 
         appViewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
 
-        appViewModel.profil.observe(viewLifecycleOwner, Observer { producteur ->
+        appViewModel.profileViewModel.profil.observe(viewLifecycleOwner, Observer { producteur ->
             root.findViewById<EditText>(R.id.editer_adresse_producteur).setText(producteur.adresse)
             root.findViewById<EditText>(R.id.editer_description_producteur).setText("Une belle petite description")
             root.findViewById<EditText>(R.id.editer_nom_producteur).setText(producteur.nom)
@@ -62,7 +61,7 @@ class EditerCompteFragment : DialogFragment() {
 
 
         root.findViewById<Button>(R.id.boutton_editer_compte_valider).setOnClickListener {
-            appViewModel.putProducteur(ProducteurRequest(
+            appViewModel.put(ProducteurRequest(
                 root.findViewById<EditText>(R.id.editer_nom_producteur).text.toString(),
                 root.findViewById<EditText>(R.id.editer_prenom_producteur).text.toString(),
                 root.findViewById<EditText>(R.id.editer_adresse_producteur).text.toString(),

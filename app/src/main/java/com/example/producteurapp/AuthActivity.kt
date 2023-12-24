@@ -20,18 +20,18 @@ class AuthActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         navController.navigate(R.id.connexionFragment)
+
         store= Storage(getApplication())
         val token : String = store.getToken()
 
 
 
-        if (token != "" && !store.isExpired())  {
-
-
-
+        if (token != "" && !store.isExpired())
+        {
             startActivity(Intent(this, AppActivity::class.java))
             this.finish()
-        }else{
+        }else
+        {
             store.clear()
         }
 

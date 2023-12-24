@@ -1,7 +1,6 @@
 package com.example.producteurapp.ui.accueil
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,10 @@ import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.producteurapp.AppViewModel
+import com.example.producteurapp.viewmodel.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.localStorage.Storage
-import com.example.producteurapp.model.CategorieProducteur
 import com.example.producteurapp.model.CategorieProduit
-import com.example.producteurapp.model.request.ProducteurRequest
 import com.example.producteurapp.model.request.ProduitRequest
 import com.example.producteurapp.model.response.ProduitReponse
 
@@ -32,13 +29,12 @@ class EditerProduitFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout to use as a dialog or embedded fragment.
         var root = inflater.inflate(R.layout.fragment_editer_produit, container, false)
 
         appViewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
 
 
-        appViewModel.produit.observe(viewLifecycleOwner, Observer { produit ->
+        appViewModel.productsViewModel.produit.observe(viewLifecycleOwner, Observer { produit ->
             root.findViewById<EditText>(R.id.editer_nom_produit).setText(produit.nom)
             root.findViewById<EditText>(R.id.editer_prix_produit).setText(produit.prix.toString())
             root.findViewById<EditText>(R.id.editer_description_produit).setText(produit.description)
@@ -65,14 +61,14 @@ class EditerProduitFragment : DialogFragment() {
         }
 
 
-        appViewModel.produit.observe(viewLifecycleOwner, Observer { p ->
+        appViewModel.productsViewModel.produit.observe(viewLifecycleOwner, Observer { p ->
           produit = p
         })
 
 
 
         root.findViewById<Button>(R.id.boutton_editer_produit_valider).setOnClickListener {
-            appViewModel.putProduit(
+            appViewModel.put(
                 ProduitRequest(
                     produit.id!!,
                 root.findViewById<EditText>(R.id.editer_nom_produit).text.toString(),

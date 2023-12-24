@@ -13,7 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.producteurapp.databinding.ActivityMainBinding
 import com.example.producteurapp.localStorage.Storage
-import com.example.producteurapp.ui.compte.EditerCompteFragment
+import com.example.producteurapp.viewmodel.AppViewModel
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.firebase.FirebaseApp
 
@@ -63,9 +63,7 @@ class AppActivity : AppCompatActivity() {
                             startActivity(intent)
                         }
                         .create().show()
-
                 }
-
                 else -> {}
             }
         }
