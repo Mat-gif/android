@@ -74,7 +74,36 @@ class AppActivity : AppCompatActivity() {
             this.finish()
         }
 
+        printChristmasTree(8)
 
+    }
 
+    fun printChristmasTree(height: Int) {
+        if (height < 1) {
+            println("La hauteur doit être supérieure à zéro.")
+            return
+        }
+
+        for (i in 1..height) {
+            // Imprime les espaces avant les étoiles
+            for (j in 0 until height - i) {
+                print(" ")
+            }
+
+            // Imprime les étoiles
+            for (j in 1..(2 * i - 1)) {
+                print("*")
+            }
+
+            println() // Passe à la ligne suivante
+        }
+
+        // Tronc du sapin
+        repeat(height / 3) {
+            repeat(height - 1) {
+                print(" ")
+            }
+            println("|")
+        }
     }
 }

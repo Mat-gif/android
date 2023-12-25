@@ -8,19 +8,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.CommandeDTO
+import com.example.producteurapp.network.ApiClient
 import com.example.producteurapp.network.ApiService
 import com.example.producteurapp.viewmodel.AppViewModel
 import kotlinx.coroutines.launch
 
 class OrdersViewModel(
     application: Application,
-    private var apiService: ApiService,
-    private var  navigationEvent: LiveData<AppViewModel.NavigationEvent>,
-    private var _navigationEvent : MutableLiveData<AppViewModel.NavigationEvent>,
+
     private var store : Storage
 ) : AndroidViewModel(application
 ){
+    private val _navigationEvent = MutableLiveData<AppViewModel.NavigationEvent>()
+    val navigationEvent: LiveData<AppViewModel.NavigationEvent> = _navigationEvent
 
+    /**
+     * initalisation de http client
+     */
+    private val apiClient: ApiClient by lazy { ApiClient(getApplication()) }
+    private val apiService by lazy { apiClient.apiService }
 
     /**
      * COMMANDES

@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.CommandeDTO
+import com.example.producteurapp.model.GetRequest
 import com.example.producteurapp.model.request.ProducteurRequest
 import com.example.producteurapp.model.request.ProduitRequest
 import com.example.producteurapp.model.request.Request
@@ -31,22 +32,48 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
 
     // Instanciation des sous-ViewModels
-    val productsViewModel = ProductsViewModel(application, apiService, navigationEvent,_navigationEvent, store)
-    val profileViewModel = ProfileViewModel(application, apiService, navigationEvent,_navigationEvent, store)
-    val ordersViewModel = OrdersViewModel(application, apiService, navigationEvent,_navigationEvent, store)
+    lateinit var productsViewModel : ProductsViewModel
+    lateinit var  profileViewModel : ProfileViewModel
+    lateinit var  ordersViewModel : OrdersViewModel
 
 
     /**
      * AU CHARGEMENT DE L'ACTIVITE
      */
     init {
+
         store= Storage(getApplication())
+        productsViewModel = ProductsViewModel(application,  store)
+        profileViewModel = ProfileViewModel(application, store)
+        ordersViewModel = OrdersViewModel(application, store)
         Log.d("INFO-TOKEN",store.decodeToken())
         Log.d("INFO-TOKEN",store.isExpired().toString())
-        profileViewModel.getProducteur()
-        productsViewModel.getProduits()
-        ordersViewModel.getCommandes()
+        // j'appelle les methodes
+        get(listOf(
+            GetRequest.PRODUCTS,
+            GetRequest.ORDER,
+            GetRequest.PROFIL
+        ))
     }
+
+
+    /**
+     *  -- GET --
+     */
+    fun  get(requests: List<GetRequest>)
+    {
+        for (request in requests) {
+            when (request) {
+                GetRequest.PROFIL -> profileViewModel.getProducteur();
+                GetRequest.PRODUCTS -> productsViewModel.getProduits()
+                GetRequest.ORDER -> ordersViewModel.getCommandes()
+
+                else -> { Log.d("AppViewModel-GET", "the GetRequest is not good") }
+            }
+        }
+    }
+
+
 
     /**
      * -- POST --

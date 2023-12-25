@@ -10,7 +10,6 @@ import com.example.producteurapp.localStorage.Storage
 import com.example.producteurapp.model.request.ProduitRequest
 import com.example.producteurapp.model.response.ProduitReponse
 import com.example.producteurapp.network.ApiClient
-import com.example.producteurapp.network.ApiService
 import com.example.producteurapp.room.AppDatabase
 import com.example.producteurapp.viewmodel.AppViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,12 +17,17 @@ import kotlinx.coroutines.launch
 
 class ProductsViewModel(
     application: Application,
-    private var apiService: ApiService,
-    private var  navigationEvent: LiveData<AppViewModel.NavigationEvent>,
-    private var _navigationEvent : MutableLiveData<AppViewModel.NavigationEvent>,
+
     private var store : Storage) : AndroidViewModel(application
     ){
+    private val _navigationEvent = MutableLiveData<AppViewModel.NavigationEvent>()
+    val navigationEvent: LiveData<AppViewModel.NavigationEvent> = _navigationEvent
 
+    /**
+     * initalisation de http client
+     */
+    private val apiClient: ApiClient by lazy {ApiClient(getApplication()) }
+    private val apiService by lazy { apiClient.apiService }
     /**
      * PRODUITS
      */
@@ -76,7 +80,7 @@ class ProductsViewModel(
                 viewModelScope.launch(Dispatchers.IO) {
                     // Utilisez la coroutine IO pour effectuer des opérations de base de données
                     response.produits.forEach { p ->
-                        AppDatabase.getDatabase(getApplication()).produitDao().insertAllProduducts(p)
+                        AppDatabase.getDatabase(getApplication()).produitDao().insertProduct(p)
                     }
                     val allProducts = AppDatabase.getDatabase(getApplication()).produitDao().getAllProduducts()
                     Log.d("TESST", allProducts.toString())
