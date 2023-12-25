@@ -31,7 +31,7 @@
 
     <string name="text_hint_password">Password</string>
     <string name="text_categorie">Catégorie</string>
-
+    <string name="text_supprimer">Supprimer</string>
 
     <string name="text_notifications">Mes dernières commandes !</string>
     <string name="titre_connexion">Se connecter</string>

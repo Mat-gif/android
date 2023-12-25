@@ -112,12 +112,39 @@ class ProductsViewModel(
                  * je met a jour la base locale
                  */
                 viewModelScope.launch(Dispatchers.IO) {
-                    AppDatabase.getDatabase(getApplication()).produitDao().insertProduct(response)
+                    AppDatabase.getDatabase(getApplication()).produitDao().updateProduct(response)
                 }
                 getProduits() // rafraichir les données
+
                 Log.d("PUT::/api/producteur/produit", response.toString())
             } catch (e: Exception) {
                 Log.e("PUT::/api/producteur/produit", e.message.toString())
+                if(store.isExpired()){
+                    store.clear()
+                    _navigationEvent.value = AppViewModel.NavigationEvent.LaunchNewActivity
+                }
+
+            }
+        }
+    }
+
+    fun deleteProduit(id: Long) {
+        viewModelScope.launch {
+            try {
+                val response = apiService.supprimerProduit(id)
+
+
+                /**
+                 * je met a jour la base locale
+                 */
+                viewModelScope.launch(Dispatchers.IO) {
+                    AppDatabase.getDatabase(getApplication()).produitDao().deleteProductById(id)
+
+                }
+                getProduits() // rafraichir les données
+                Log.d("DELETE::/api/producteur/produit", response.toString())
+            } catch (e: Exception) {
+                Log.e("DELETE::/api/producteur/produit", e.message.toString())
                 if(store.isExpired()){
                     store.clear()
                     _navigationEvent.value = AppViewModel.NavigationEvent.LaunchNewActivity

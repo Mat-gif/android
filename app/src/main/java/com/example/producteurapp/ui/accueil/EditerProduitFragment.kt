@@ -33,17 +33,17 @@ class EditerProduitFragment : DialogFragment() {
 
         appViewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
 
+        val autoCompleteTextView = root.findViewById<AutoCompleteTextView>(R.id.editer_categorie_produit)
 
         appViewModel.productsViewModel.produit.observe(viewLifecycleOwner, Observer { produit ->
             root.findViewById<EditText>(R.id.editer_nom_produit).setText(produit.nom)
             root.findViewById<EditText>(R.id.editer_prix_produit).setText(produit.prix.toString())
             root.findViewById<EditText>(R.id.editer_description_produit).setText(produit.description)
             root.findViewById<EditText>(R.id.editer_quantite_produit).setText(produit.quantite.toString())
-
+            categorie = produit.categorie!!
         })
 
 
-        val autoCompleteTextView = root.findViewById<AutoCompleteTextView>(R.id.editer_categorie_produit)
 
         autoCompleteTextView.setOnItemClickListener { parent, _, position, _ ->
             val selectedItem = parent.getItemAtPosition(position).toString()
@@ -84,7 +84,15 @@ class EditerProduitFragment : DialogFragment() {
             this.dismiss()
         }
 
+        root.findViewById<Button>(R.id.boutton_supprimer_produit).setOnClickListener {
 
+            appViewModel.productsViewModel.produit.observe(viewLifecycleOwner, Observer { produit ->
+                println(produit.id)
+                produit.id?.let { it1 -> appViewModel.productsViewModel.deleteProduit(it1) }
+            })
+
+            this.dismiss()
+        }
         return root
 
 

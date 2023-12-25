@@ -99,6 +99,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+
+
     sealed class NavigationEvent {
         object LaunchNewActivity : NavigationEvent()
     }

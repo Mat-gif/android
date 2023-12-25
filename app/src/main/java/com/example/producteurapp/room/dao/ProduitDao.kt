@@ -1,9 +1,11 @@
 package com.example.producteurapp.room.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.producteurapp.model.response.ProduitReponse
 
 @Dao
@@ -12,9 +14,17 @@ interface ProduitDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertProduct(vararg p: ProduitReponse)
+    @Update
+    fun updateProduct(vararg produits: ProduitReponse)
+
+
+    @Query("DELETE FROM produits  WHERE id = :productId")
+    fun deleteProductById(productId: Long)
 
     @Query("SELECT * FROM produits p WHERE p.emailProducteur = :email")
     fun getAllProduducts(email : String): List<ProduitReponse>
+
+
 
 //
 //    @Insert(onConflict = OnConflictStrategy.REPLACE)

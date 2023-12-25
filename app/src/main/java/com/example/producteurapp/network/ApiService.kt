@@ -13,9 +13,11 @@ import com.example.producteurapp.model.response.ProducteurResponse
 import com.example.producteurapp.model.response.ProduitReponse
 import com.example.producteurapp.model.response.ProduitsReponse
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 /**
  * Connexion a l'api
@@ -40,5 +42,8 @@ interface ApiService {
     suspend fun validerCommande(@Body request : CommandeDTO)
     @PUT("/api/producteur/produit")
     suspend fun modifierProduit(@Body produitRequest: ProduitRequest) : ProduitReponse
+
+    @DELETE("/api/producteur/produit/{id}")
+    suspend fun supprimerProduit(@Path("id") id: Long)
 }
 
