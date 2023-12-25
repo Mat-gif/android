@@ -80,6 +80,7 @@ class PublierFragment : Fragment() {
             )
 
             appViewModel.post(produitRequest)
+
             val navController = findNavController()
             navController.navigate(R.id.navigation_accueil)
 

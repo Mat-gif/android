@@ -11,7 +11,7 @@ import com.example.producteurapp.model.response.ProduitReponse
 interface ProfilDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertProfil(vararg p: ProducteurResponse)
-    @Query("SELECT * FROM profil")
-    fun getProfil(): ProducteurResponse
+    @Query("SELECT * FROM profil p WHERE p.email = :email")
+    fun getProfil(email : String): ProducteurResponse
 
 }

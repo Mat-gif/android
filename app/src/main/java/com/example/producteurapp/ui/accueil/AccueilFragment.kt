@@ -18,6 +18,7 @@ import com.example.producteurapp.R
 
 import com.example.producteurapp.databinding.FragmentAccueilBinding
 import com.example.producteurapp.databinding.FragmentPublierBinding
+import com.example.producteurapp.model.GetRequest
 import com.example.producteurapp.service.CustomBarService
 import com.google.android.material.tabs.TabLayout
 
@@ -69,13 +70,15 @@ class AccueilFragment : Fragment() {
             adapter.updateProducts(produits) // maj des produits
         })
 
+
+
         /**
          * Gestion des filtres a l'aide des TAB
          */
         root.findViewById<TabLayout>(R.id.tabs_accueil).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
-                    0 ->  appViewModel.productsViewModel.getProduits() // reinitialiser
+                    0 ->  appViewModel.get(listOf(GetRequest.PRODUCTS)) // reinitialiser
                     1 -> appViewModel.productsViewModel.updateProduits(appViewModel.productsViewModel.produits.value!!.sortedBy { it.prix }) // croissant
                     2 -> appViewModel.productsViewModel.updateProduits(appViewModel.productsViewModel.produits.value!!.sortedByDescending { it.prix }) // decroissant
                 }

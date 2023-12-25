@@ -51,7 +51,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         // j'appelle les methodes
         get(listOf(
             GetRequest.PRODUCTS,
-            GetRequest.ORDER,
+            GetRequest.ORDERS,
             GetRequest.PROFIL
         ))
     }
@@ -66,7 +66,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             when (request) {
                 GetRequest.PROFIL -> profileViewModel.getProducteur();
                 GetRequest.PRODUCTS -> productsViewModel.getProduits()
-                GetRequest.ORDER -> ordersViewModel.getCommandes()
+                GetRequest.ORDERS -> ordersViewModel.getCommandes()
 
                 else -> { Log.d("AppViewModel-GET", "the GetRequest is not good") }
             }

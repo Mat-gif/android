@@ -55,8 +55,14 @@ class ProductsViewModel(
         viewModelScope.launch {
             try {
                 val response = apiService.publierProduit(produitRequest)
+                /**
+                 * je met a jour la base locale
+                 */
+                viewModelScope.launch(Dispatchers.IO) {
+                    AppDatabase.getDatabase(getApplication()).produitDao().insertProduct(response)
+                }
+                getProduits() // rafraichir les données
                 Log.d("POST::/api/producteur/produit", response.toString())
-                getProduits()
             } catch (e: Exception) {
                 Log.e("POST::/api/producteur/produit", e.message.toString())
                 if(store.isExpired()){
@@ -73,24 +79,22 @@ class ProductsViewModel(
     fun getProduits() {
         viewModelScope.launch {
             try {
-                val response = apiService.afficherProduits()
-                updateProduits(response.produits)
+//                val response = apiService.afficherProduits()
+//                updateProduits(response.produits)
                 // ajout en base
 
+                /**
+                 * je recupere en local les produits
+                 */
                 viewModelScope.launch(Dispatchers.IO) {
-                    // Utilisez la coroutine IO pour effectuer des opérations de base de données
-                    response.produits.forEach { p ->
-                        AppDatabase.getDatabase(getApplication()).produitDao().insertProduct(p)
+                    val products =  AppDatabase.getDatabase(getApplication()).produitDao().getAllProduducts(store.getProfil().email)
+                    if (products != null )
+                    {
+                        updateProduits(products)
                     }
-                    val allProducts = AppDatabase.getDatabase(getApplication()).produitDao().getAllProduducts()
-                    Log.d("TESST", allProducts.toString())
+                    Log.d("GET::/api/producteur/produit", products.toString())
                 }
-//
-
-
-
-
-                Log.d("GET::/api/producteur/produit", response.toString())
+//                Log.d("GET::/api/producteur/produit", response.toString())
             } catch (e: Exception) {
                 Log.e("GET::/api/producteur/produit", e.message.toString())
                 if(store.isExpired()){
@@ -104,9 +108,14 @@ class ProductsViewModel(
         viewModelScope.launch {
             try {
                 val response = apiService.modifierProduit(produitRequest)
-                getProduits()
+                /**
+                 * je met a jour la base locale
+                 */
+                viewModelScope.launch(Dispatchers.IO) {
+                    AppDatabase.getDatabase(getApplication()).produitDao().insertProduct(response)
+                }
+                getProduits() // rafraichir les données
                 Log.d("PUT::/api/producteur/produit", response.toString())
-                println("#####$response")
             } catch (e: Exception) {
                 Log.e("PUT::/api/producteur/produit", e.message.toString())
                 if(store.isExpired()){

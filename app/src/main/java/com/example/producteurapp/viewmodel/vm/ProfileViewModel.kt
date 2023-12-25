@@ -51,7 +51,7 @@ class ProfileViewModel(
                  */
                 viewModelScope.launch(Dispatchers.IO) {
 
-                    var response = AppDatabase.getDatabase(getApplication()).profilDao().getProfil()
+                    var response = AppDatabase.getDatabase(getApplication()).profilDao().getProfil(store.getProfil().email)
                     /**
                      * si valeur null j'initialise mon utilisateur lors de la premiere connexion en local
                      */

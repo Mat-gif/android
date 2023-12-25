@@ -15,6 +15,7 @@ import com.example.producteurapp.viewmodel.AppViewModel
 import com.example.producteurapp.R
 import com.example.producteurapp.databinding.FragmentAccueilBinding
 import com.example.producteurapp.databinding.FragmentNotificationsBinding
+import com.example.producteurapp.model.GetRequest
 import com.example.producteurapp.model.StatutCommande
 import com.example.producteurapp.model.response.ProduitReponse
 import com.example.producteurapp.service.CustomBarService
@@ -46,7 +47,7 @@ class NotificationsFragment : Fragment() {
 
 
 
-        appViewModel.ordersViewModel.getCommandes()
+        appViewModel.get(listOf(GetRequest.ORDERS))
 
         val commandeRecyclerView = root.findViewById<RecyclerView>(R.id.reclyclerView_commande)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

@@ -13,8 +13,8 @@ interface ProduitDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertProduct(vararg p: ProduitReponse)
 
-    @Query("SELECT * FROM produits")
-    fun getAllProduducts(): List<ProduitReponse>
+    @Query("SELECT * FROM produits p WHERE p.emailProducteur = :email")
+    fun getAllProduducts(email : String): List<ProduitReponse>
 
 //
 //    @Insert(onConflict = OnConflictStrategy.REPLACE)
