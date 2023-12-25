@@ -13,6 +13,7 @@ import com.example.producteurapp.network.ApiClient
 import com.example.producteurapp.room.AppDatabase
 import com.example.producteurapp.viewmodel.AppViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class ProductsViewModel(
@@ -59,9 +60,17 @@ class ProductsViewModel(
                  * je met a jour la base locale
                  */
                 viewModelScope.launch(Dispatchers.IO) {
-                    AppDatabase.getDatabase(getApplication()).produitDao().insertProduct(response)
+                    // Perform the insertion and await for its completion
+                    val inserted = async {
+                        AppDatabase.getDatabase(getApplication()).produitDao().insertProduct(response)
+                    }
+                    // Wait for the insertion to complete
+                    inserted.await()
+
+                    // Refresh data after insertion is completed
+                    getProduits()
                 }
-                getProduits() // rafraichir les données
+
                 Log.d("POST::/api/producteur/produit", response.toString())
             } catch (e: Exception) {
                 Log.e("POST::/api/producteur/produit", e.message.toString())
@@ -87,12 +96,15 @@ class ProductsViewModel(
                  * je recupere en local les produits
                  */
                 viewModelScope.launch(Dispatchers.IO) {
-                    val products =  AppDatabase.getDatabase(getApplication()).produitDao().getAllProduducts(store.getProfil().email)
-                    if (products != null )
-                    {
+                    val products = AppDatabase.getDatabase(getApplication()).produitDao().getAllProduducts(store.getProfil().email)
+                    if (products == null) {
+                        val apiProducts = apiService.afficherProduits().produits
+                        apiProducts?.let { updateProduits(it) }
+                    } else {
                         updateProduits(products)
                     }
                     Log.d("GET::/api/producteur/produit", products.toString())
+
                 }
 //                Log.d("GET::/api/producteur/produit", response.toString())
             } catch (e: Exception) {
@@ -113,8 +125,16 @@ class ProductsViewModel(
                  */
                 viewModelScope.launch(Dispatchers.IO) {
                     AppDatabase.getDatabase(getApplication()).produitDao().updateProduct(response)
+
+                    val inserted = async {
+                        AppDatabase.getDatabase(getApplication()).produitDao().updateProduct(response)
+                    }
+                    // Wait for the insertion to complete
+                    inserted.await()
+
+                    // Refresh data after insertion is completed
+                    getProduits()
                 }
-                getProduits() // rafraichir les données
 
                 Log.d("PUT::/api/producteur/produit", response.toString())
             } catch (e: Exception) {

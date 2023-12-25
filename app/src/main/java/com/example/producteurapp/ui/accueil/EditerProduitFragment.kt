@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -41,6 +42,8 @@ class EditerProduitFragment : DialogFragment() {
             root.findViewById<EditText>(R.id.editer_description_produit).setText(produit.description)
             root.findViewById<EditText>(R.id.editer_quantite_produit).setText(produit.quantite.toString())
             categorie = produit.categorie!!
+            Toast.makeText(requireContext(), produit.id.toString(), Toast.LENGTH_LONG).show()
+
         })
 
 

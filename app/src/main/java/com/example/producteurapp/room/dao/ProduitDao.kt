@@ -24,6 +24,9 @@ interface ProduitDao {
     @Query("SELECT * FROM produits p WHERE p.emailProducteur = :email")
     fun getAllProduducts(email : String): List<ProduitReponse>
 
+    @Query("SELECT * FROM produits")
+    fun getAll(): List<ProduitReponse>
+
 
 
 //
