@@ -157,10 +157,10 @@ class ProductsViewModel(
                 /**
                  * je met a jour la base locale
                  */
-                viewModelScope.launch(Dispatchers.IO) {
-                    AppDatabase.getDatabase(getApplication()).produitDao().deleteProductById(id)
-
-                }
+//                viewModelScope.launch(Dispatchers.IO) {
+//                    AppDatabase.getDatabase(getApplication()).produitDao().deleteProductById(id)
+//
+//                }
                 getProduits() // rafraichir les données
                 Log.d("DELETE::/api/producteur/produit", response.toString())
             } catch (e: Exception) {

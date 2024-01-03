@@ -18,8 +18,8 @@ interface ProduitDao {
     fun updateProduct(vararg produits: ProduitReponse)
 
 
-    @Query("DELETE FROM produits  WHERE id = :productId")
-    fun deleteProductById(productId: Long)
+//    @Query("DELETE FROM produits  WHERE id = :productId")
+//    fun deleteProductById(productId: Long)
 
     @Query("SELECT * FROM produits p WHERE p.emailProducteur = :email")
     fun getAllProduducts(email : String): List<ProduitReponse>
