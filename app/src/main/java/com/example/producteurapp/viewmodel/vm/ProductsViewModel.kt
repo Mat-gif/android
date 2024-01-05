@@ -101,7 +101,7 @@ class ProductsViewModel(
                         val apiProducts = apiService.afficherProduits().produits
                         apiProducts?.let { updateProduits(it) }
                     } else {
-                        updateProduits(products)
+                        updateProduits(products.filter { it.isDelete !== true })
                     }
                     Log.d("GET::/api/producteur/produit", products.toString())
 
@@ -148,21 +148,23 @@ class ProductsViewModel(
         }
     }
 
-    fun deleteProduit(id: Long) {
+    fun deleteProduit(produit: ProduitReponse) {
         viewModelScope.launch {
             try {
-                val response = apiService.supprimerProduit(id)
+                val response = produit.id?.let { apiService.supprimerProduit(it) }
 
+                produit.isDelete = true
 
                 /**
                  * je met a jour la base locale
                  */
-//                viewModelScope.launch(Dispatchers.IO) {
-//                    AppDatabase.getDatabase(getApplication()).produitDao().deleteProductById(id)
-//
-//                }
+                val inserted = async {
+                    AppDatabase.getDatabase(getApplication()).produitDao().updateProduct(produit)
+                }
+                inserted.await()
+
                 getProduits() // rafraichir les données
-                Log.d("DELETE::/api/producteur/produit", response.toString())
+                Log.d("DELETE::/api/producteur/produit", produit.toString())
             } catch (e: Exception) {
                 Log.e("DELETE::/api/producteur/produit", e.message.toString())
                 if(store.isExpired()){

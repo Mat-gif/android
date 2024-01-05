@@ -14,5 +14,5 @@ data class ProduitReponse(
     val emailProducteur : String?,
     val  date_publication : String?,
     val categorie : CategorieProduit?,
-    val isDelete : Boolean?
+    var isDelete : Boolean?
 )

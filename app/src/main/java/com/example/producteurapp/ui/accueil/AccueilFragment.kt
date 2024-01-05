@@ -1,13 +1,17 @@
 package com.example.producteurapp.ui.accueil
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,12 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.producteurapp.viewmodel.AppViewModel
 import com.example.producteurapp.R
-
 import com.example.producteurapp.databinding.FragmentAccueilBinding
-import com.example.producteurapp.databinding.FragmentPublierBinding
 import com.example.producteurapp.model.GetRequest
 import com.example.producteurapp.service.CustomBarService
 import com.google.android.material.tabs.TabLayout
+import java.util.Locale
 
 class AccueilFragment : Fragment() {
 
@@ -49,9 +52,6 @@ class AccueilFragment : Fragment() {
 
 
 
-
-
-
         val productRecyclerView = root.findViewById<RecyclerView>(R.id.reclyclerView_produit)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         productRecyclerView.layoutManager = layoutManager
@@ -67,7 +67,9 @@ class AccueilFragment : Fragment() {
          * Maj de la liste des produits
          */
         appViewModel.productsViewModel.produits.observe(viewLifecycleOwner, Observer { produits ->
-            adapter.updateProducts(produits) // maj des produits
+
+            adapter.updateProducts(produits.filter { it.isDelete !== true }) // maj des produits
+            println(produits)
         })
 
 
@@ -101,9 +103,11 @@ class AccueilFragment : Fragment() {
         return root
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
 }
+

@@ -90,8 +90,9 @@ class EditerProduitFragment : DialogFragment() {
         root.findViewById<Button>(R.id.boutton_supprimer_produit).setOnClickListener {
 
             appViewModel.productsViewModel.produit.observe(viewLifecycleOwner, Observer { produit ->
-                println(produit.id)
-                produit.id?.let { it1 -> appViewModel.productsViewModel.deleteProduit(it1) }
+
+                appViewModel.productsViewModel.deleteProduit(produit)
+
             })
 
             this.dismiss()
