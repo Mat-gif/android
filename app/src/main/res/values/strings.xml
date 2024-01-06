@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProducteurApp</string>
+    <string name="app_name" translatable="false">ProducteurApp</string>
     <string name="titre_accueil">Accueil</string>
     <string name="titre_publier">Publier</string>
     <string name="titre_notifications">Notifications</string>
@@ -13,7 +13,7 @@
     <string name="tap_prix_croissant">Prix croissant</string>
     <string name="tap_prix_decroissant">Prix décroissant</string>
 
-    <string name="tap_en_attente">En attente</string>
+    <string name="tap_en_attente">Nouvelle</string>
     <string name="tap_validee">Validée</string>
     <string name="tap_refusee">Refusée</string>
 
@@ -37,7 +37,7 @@
     <string name="titre_connexion">Se connecter</string>
     <string name="titre_enregistrement">S\'enregistrer</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <string-array name="categorie_produit">
         <item>FRUIT</item>
@@ -55,6 +55,8 @@
         <item>APICULTEUR</item>
 
     </string-array>
+
+    <string name="pays">Pays : </string>
 
 
 </resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="titre_accueil">Home</string>
+    <string name="titre_publier">Publish</string>
+    <string name="titre_notifications">Notifications</string>
+    <string name="titre_compte">Account</string>
+    <string name="text_valider">Validate</string>
+    <string name="text_annuler">Cancel</string>
+    <string name="text_refuser">Refuse</string>
+    <string name="text_pas_de_compte">I do not have an account</string>
+    <string name="text_un_compte">I already have an account</string>
+    <string name="text_recherche">Search</string>
+    <string name="tap_prix_croissant">ascending price</string>
+    <string name="tap_prix_decroissant">decreasing price</string>
+    <string name="tap_en_attente">New</string>
+    <string name="tap_validee">Validated</string>
+    <string name="tap_refusee">Refused</string>
+    <string name="text_hint_prenom">Firstname</string>
+    <string name="text_bonjour">Hello</string>
+    <string name="text_hint_nom">Lastname</string>
+    <string name="text_hint_telephone">Phone</string>
+    <string name="text_hint_adresse">Adress</string>
+    <string name="text_publier">Publish</string>
+    <string name="text_hint_email">Email</string>
+    <string name="text_hint_produit">Product</string>
+    <string name="text_hint_quantite">Quantity</string>
+    <string name="text_hint_prix">Price</string>
+    <string name="text_hint_description">Description</string>
+    <string name="text_hint_password">Password</string>
+    <string name="text_categorie">Category</string>
+    <string name="text_supprimer">Delete</string>
+    <string name="text_notifications">Last orders</string>
+    <string name="titre_connexion">Login</string>
+    <string name="titre_enregistrement">Register</string>
+    <string name="pays">"Country : "</string>
+</resources>
