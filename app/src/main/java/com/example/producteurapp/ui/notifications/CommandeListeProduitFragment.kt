@@ -76,7 +76,7 @@ class CommandeListeProduitFragment : DialogFragment() {
 
 
         root.findViewById<Button>(R.id.boutton_valider_commande).setOnClickListener {listenerAction(StatutCommande.VALIDE)}
-        root.findViewById<Button>(R.id.boutton_refuser_commande).setOnClickListener {StatutCommande.REFUS }
+        root.findViewById<Button>(R.id.boutton_refuser_commande).setOnClickListener {listenerAction(StatutCommande.REFUS) }
 
 
 

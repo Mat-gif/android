@@ -68,7 +68,7 @@ class AccueilFragment : Fragment() {
          */
         appViewModel.productsViewModel.produits.observe(viewLifecycleOwner, Observer { produits ->
 
-            adapter.updateProducts(produits.filter { it.isDelete !== true }) // maj des produits
+            adapter.updateProducts(produits.filter { it.delete !== true }) // maj des produits
             println(produits)
         })
 

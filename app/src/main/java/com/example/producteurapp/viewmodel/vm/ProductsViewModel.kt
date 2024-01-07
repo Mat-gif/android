@@ -101,7 +101,7 @@ class ProductsViewModel(
                         val apiProducts = apiService.afficherProduits().produits
                         apiProducts?.let { updateProduits(it) }
                     } else {
-                        updateProduits(products.filter { it.isDelete !== true })
+                        updateProduits(products.filter { it.delete !== true })
                     }
                     Log.d("GET::/api/producteur/produit", products.toString())
 
@@ -153,7 +153,7 @@ class ProductsViewModel(
             try {
                 val response = produit.id?.let { apiService.supprimerProduit(it) }
 
-                produit.isDelete = true
+                produit.delete = true
 
                 /**
                  * je met a jour la base locale
