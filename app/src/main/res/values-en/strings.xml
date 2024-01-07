@@ -33,4 +33,6 @@
     <string name="titre_connexion">Login</string>
     <string name="titre_enregistrement">Register</string>
     <string name="pays">"Country : "</string>
+    <string name="editprofiltxt">Edit account</string>
+    <string name="editproduitxt">Edit product</string>
 </resources>

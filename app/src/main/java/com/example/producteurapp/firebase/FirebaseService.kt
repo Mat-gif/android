@@ -19,7 +19,7 @@ class FirebaseService : FirebaseMessagingService() {
         Log.d("FIREBASE_BAM", message.data.toString())
         // Récupérer les données du message
         val data = message.data
-        val body = data["message"]
+        val body = "Super ta commande t'attend !"
         val handler = Handler(Looper.getMainLooper())
 
         handler.post{

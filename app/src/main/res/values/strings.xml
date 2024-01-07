@@ -58,5 +58,8 @@
 
     <string name="pays">Pays : </string>
 
+    <string name="editproduitxt">Modifer le produit</string>
+
+    <string name="editprofiltxt">Editer le profil</string>
 
 </resources>

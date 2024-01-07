@@ -53,7 +53,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Produit"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/produit_commande_quantite"
                 app:layout_constraintStart_toEndOf="@+id/cardView"

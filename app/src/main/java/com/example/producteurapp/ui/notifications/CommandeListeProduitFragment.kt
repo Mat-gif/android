@@ -36,6 +36,9 @@ class CommandeListeProduitFragment : DialogFragment() {
         appViewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
         appViewModel.productsViewModel.produits.observe(viewLifecycleOwner, Observer { p ->
             produits = p
+            println("dddddddddd")
+            println(p)
+            adapter.updateProduitsCommande(commande,produits)
         })
 
 
@@ -43,10 +46,12 @@ class CommandeListeProduitFragment : DialogFragment() {
         val productRecyclerView = root.findViewById<RecyclerView>(R.id.recyclerView_produit_commande)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         productRecyclerView.layoutManager = layoutManager
-        adapter = CommandeListeProduitAdapter(commande,
-            emptyList(),requireContext()){ produitQuantiteResponse ->
-            adapter.updateProduitsCommande(commande, produits)
-
+        adapter = CommandeListeProduitAdapter(
+            commande,
+            emptyList(),
+            requireContext()
+        ) {
+        adapter.updateProduitsCommande(commande, produits)
         }
         productRecyclerView.adapter = adapter
 

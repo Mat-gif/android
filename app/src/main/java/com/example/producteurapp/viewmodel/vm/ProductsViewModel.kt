@@ -67,6 +67,8 @@ class ProductsViewModel(
                     // Wait for the insertion to complete
                     inserted.await()
 
+
+
                     // Refresh data after insertion is completed
                     getProduits()
                 }
@@ -99,6 +101,7 @@ class ProductsViewModel(
                     val products = AppDatabase.getDatabase(getApplication()).produitDao().getAllProduducts(store.getProfil().email)
                     if (products == null) {
                         val apiProducts = apiService.afficherProduits().produits
+
                         apiProducts?.let { updateProduits(it) }
                     } else {
                         updateProduits(products.filter { it.delete !== true })

@@ -15,11 +15,12 @@ import com.example.producteurapp.model.StatutProduitQuantite
 import com.example.producteurapp.model.CommandeDTO
 import com.example.producteurapp.model.response.ProduitQuantiteResponse
 import com.example.producteurapp.model.response.ProduitReponse
+import com.example.producteurapp.viewmodel.AppViewModel
 
 
 class CommandeListeProduitAdapter(
     var commande: CommandeDTO,
-    var produits: List<ProduitReponse>,
+    var  produits : List<ProduitReponse>,
     var context: Context,
     private val onItemClick: (ProduitQuantiteResponse) -> Unit // Ajoutez un paramètre de fonction pour l'OnClick
 ) : RecyclerView.Adapter<CommandeListeProduitAdapter.CommandeListeProduitViewHolder>() {
@@ -81,10 +82,12 @@ class CommandeListeProduitAdapter(
     // Méthode pour remplir les données dans la vue (appelée pour chaque élément de la liste)
     override fun onBindViewHolder(holder: CommandeListeProduitViewHolder, position: Int) {
 
-        val p : List<ProduitReponse> = produits.filter { it.id == commande.produits!![position].id }
-        if(p.isNotEmpty()) {
-            holder.produitQuantites_produit_nom.text = p.first().nom
-        }
+
+
+
+//        val p : ProduitReponse = produits.first { it.id == commande.produits!![position].id }
+
+
 
         if(commande.produits!![position].statusProduitQuantite == StatutProduitQuantite.ACCEPT)
         {
@@ -94,6 +97,7 @@ class CommandeListeProduitAdapter(
             holder.valider.visibility = View.INVISIBLE
             holder.refuser.visibility = View.VISIBLE
         }
+        holder.produitQuantites_produit_nom.text =  "Id : "+  commande.produits!![position].id.toString()
 
 
         holder.produitQuantites_produit_quantite.text = commande.produits!![position].quantite.toString()
